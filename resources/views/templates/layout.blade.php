@@ -78,9 +78,9 @@
                             Informacion de cursos
                         </a>
                         <ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/informacion_cursos">Flayers y anuncios </a></li>
-                            <li><a class="dropdown-item" href="/informacion_cursos">Promociones</a></li>
-                            <li><a class="dropdown-item" href="/informacion_cursos">Fechas de inscripcion</a></li>
+                            <li><a class="dropdown-item" href="{{url('/informacion_cursos/flayAdds')}}">Flayers y anuncios </a></li>
+                            <li><a class="dropdown-item" href="{{url('/informacion_cursos/promociones')}}">Promociones</a></li>
+                            <li><a class="dropdown-item" href="{{url('/informacion_cursos/fechas')}}">Fechas de inscripcion</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -90,7 +90,7 @@
                         <a class="nav-link" href="/participantes">Participantes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#employees">Colaboradores</a>
+                        <a class="nav-link" href="/colaboradores">Colaboradores</a>
                     </li>
                 </ul>
             </div>
@@ -111,7 +111,7 @@
                         <span class="email">Correodecontacto</span><br>
                         <span class="numero">232454356</span>
                     </div>
-                    <a class="btn btn-primary mt-2" href="/foro" role="button">Foro</a>
+                    <a id="ocultar " class="btn btn-primary mt-2" href="/foro" role="button">Foro</a>
                 </div>
                 <div class="col-md-4">
                     <a href="https://www.facebook.com/?locale=es_LA" class="social mb-2">

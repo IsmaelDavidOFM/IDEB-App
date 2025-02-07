@@ -14,8 +14,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/informacion_cursos', function () {
-    return view('Info_cursos');
+Route::get('/informacion_cursos/{opcion}', function ($opcion) {
+    return view('Info_cursos', ['opcion' => $opcion]);
 });
 Route::get('/cursos_online', function () {
     return view('cursos_online');
@@ -25,9 +25,6 @@ Route::get('/participantes', function () {
 });
 Route::get('/colaboradores', function () {
     return view('colaboradores');
-});
-Route::get('/foro', function () {
-    return view('foro-view.foro');
 });
 Route::get('/producto', function () {
     return view('product_View');
@@ -40,4 +37,10 @@ Route::get('/Material_Apoyo', function () {
 });
 Route::get('/cursos', function () {
     return view('cursos');
+});
+Route::get('/foro', function () {
+    return view('foro-view.foro');
+});
+Route::get('/blog', function () {
+    return view('foro-view.blog');
 });
