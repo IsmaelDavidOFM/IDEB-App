@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "862636d09a2ff51878373bb3aff4f39e",
+=======
+    "content-hash": "626b9e7ddd47fb7eff9aaa53cce0c9ad",
+>>>>>>> 68957ce (cambios 02)
     "packages": [
         {
             "name": "brick/math",
@@ -511,6 +515,7 @@
             "time": "2024-12-27T00:36:43+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "firebase/php-jwt",
             "version": "v6.11.0",
             "source": {
@@ -574,6 +579,8 @@
             "time": "2025-01-23T05:11:06+00:00"
         },
         {
+=======
+>>>>>>> 68957ce (cambios 02)
             "name": "fruitcake/php-cors",
             "version": "v1.3.0",
             "source": {
@@ -1033,6 +1040,7 @@
         },
         {
             "name": "guzzlehttp/uri-template",
+<<<<<<< HEAD
             "version": "v1.0.3",
             "source": {
                 "type": "git",
@@ -1043,6 +1051,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/guzzle/uri-template/zipball/ecea8feef63bd4fef1f037ecb288386999ecc11c",
                 "reference": "ecea8feef63bd4fef1f037ecb288386999ecc11c",
+=======
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/uri-template.git",
+                "reference": "30e286560c137526eccd4ce21b2de477ab0676d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/uri-template/zipball/30e286560c137526eccd4ce21b2de477ab0676d2",
+                "reference": "30e286560c137526eccd4ce21b2de477ab0676d2",
+>>>>>>> 68957ce (cambios 02)
                 "shasum": ""
             },
             "require": {
@@ -1099,7 +1119,11 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/uri-template/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/guzzle/uri-template/tree/v1.0.3"
+=======
+                "source": "https://github.com/guzzle/uri-template/tree/v1.0.4"
+>>>>>>> 68957ce (cambios 02)
             },
             "funding": [
                 {
@@ -1115,7 +1139,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-12-03T19:50:20+00:00"
+=======
+            "time": "2025-02-03T10:55:03+00:00"
+>>>>>>> 68957ce (cambios 02)
         },
         {
             "name": "laravel/framework",
@@ -1453,6 +1481,7 @@
             "time": "2025-01-24T15:42:37+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "laravel/socialite",
             "version": "v5.17.1",
             "source": {
@@ -1525,6 +1554,8 @@
             "time": "2025-01-28T15:16:52+00:00"
         },
         {
+=======
+>>>>>>> 68957ce (cambios 02)
             "name": "laravel/tinker",
             "version": "v2.10.1",
             "source": {
@@ -1968,6 +1999,7 @@
             "time": "2024-09-21T08:32:55+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "league/oauth1-client",
             "version": "v1.11.0",
             "source": {
@@ -2044,6 +2076,8 @@
             "time": "2024-12-10T19:59:05+00:00"
         },
         {
+=======
+>>>>>>> 68957ce (cambios 02)
             "name": "league/uri",
             "version": "7.5.1",
             "source": {
@@ -2720,6 +2754,7 @@
             "time": "2024-11-21T10:39:51+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "paragonie/constant_time_encoding",
             "version": "v3.0.0",
             "source": {
@@ -2837,6 +2872,8 @@
             "time": "2020-10-15T08:29:30+00:00"
         },
         {
+=======
+>>>>>>> 68957ce (cambios 02)
             "name": "phpoption/phpoption",
             "version": "1.9.3",
             "source": {
@@ -2912,6 +2949,7 @@
             "time": "2024-07-20T21:41:07+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "phpseclib/phpseclib",
             "version": "3.0.43",
             "source": {
@@ -3022,6 +3060,8 @@
             "time": "2024-12-14T21:12:59+00:00"
         },
         {
+=======
+>>>>>>> 68957ce (cambios 02)
             "name": "psr/clock",
             "version": "1.0.0",
             "source": {
@@ -6021,6 +6061,7 @@
             "time": "2024-12-21T16:25:41+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "twbs/bootstrap",
             "version": "v5.0.2",
             "source": {
@@ -6071,6 +6112,8 @@
             "time": "2021-06-22T18:29:16+00:00"
         },
         {
+=======
+>>>>>>> 68957ce (cambios 02)
             "name": "vlucas/phpdotenv",
             "version": "v5.6.1",
             "source": {
@@ -7364,6 +7407,7 @@
         },
         {
             "name": "phpunit/phpunit",
+<<<<<<< HEAD
             "version": "11.5.5",
             "source": {
                 "type": "git",
@@ -7374,6 +7418,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b9a975972f580c0491f834eb0818ad2b32fd8bba",
                 "reference": "b9a975972f580c0491f834eb0818ad2b32fd8bba",
+=======
+            "version": "11.5.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/phpunit.git",
+                "reference": "e1cb706f019e2547039ca2c839898cd5f557ee5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e1cb706f019e2547039ca2c839898cd5f557ee5d",
+                "reference": "e1cb706f019e2547039ca2c839898cd5f557ee5d",
+>>>>>>> 68957ce (cambios 02)
                 "shasum": ""
             },
             "require": {
@@ -7445,7 +7501,11 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
+<<<<<<< HEAD
                 "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.5"
+=======
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.7"
+>>>>>>> 68957ce (cambios 02)
             },
             "funding": [
                 {
@@ -7461,7 +7521,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2025-01-29T14:01:11+00:00"
+=======
+            "time": "2025-02-06T16:10:05+00:00"
+>>>>>>> 68957ce (cambios 02)
         },
         {
             "name": "sebastian/cli-parser",
@@ -8566,12 +8630,20 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
+<<<<<<< HEAD
     "stability-flags": {},
+=======
+    "stability-flags": [],
+>>>>>>> 68957ce (cambios 02)
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
+<<<<<<< HEAD
     "platform-dev": {},
+=======
+    "platform-dev": [],
+>>>>>>> 68957ce (cambios 02)
     "plugin-api-version": "2.6.0"
 }

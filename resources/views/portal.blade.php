@@ -1,12 +1,17 @@
 @extends('templates.layout')
 
 @section('title', 'Portal')
+<<<<<<< HEAD
+=======
+
+>>>>>>> 68957ce (cambios 02)
 <style>
     .cardOp {
         position: relative;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         text-align: center;
         transition: transform 0.2s;
+<<<<<<< HEAD
         margin: 50px auto;
         /* Centrar la tarjeta horizontalmente */
         border-radius: 10px;
@@ -14,6 +19,15 @@
         padding: 50px;
         width: 50%;
         /* Hacer que la tarjeta abarque solo el 30% de la página */
+=======
+        margin: 20px;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        padding: 30px;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 30px;
+>>>>>>> 68957ce (cambios 02)
     }
 
     .cardOp:hover {
@@ -32,6 +46,7 @@
         margin-top: 10px;
         color: #29323b;
         text-decoration: none;
+<<<<<<< HEAD
     }
     h2 {
         text-align: center;
@@ -62,9 +77,67 @@
                 <div class="cardOp">
                     <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Image default">
                     <a href="#">Certificado</a>
+=======
+        font-weight: bold;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    /* Para centrar las tarjetas en la pantalla */
+    .row {
+        display: flex;
+        justify-content: center; /* Centra las tarjetas en el eje horizontal */
+        align-items: center; /* Centra las tarjetas en el eje vertical */
+        flex-wrap: wrap; /* Permite que las tarjetas se ajusten a varias filas si es necesario */
+    }
+
+    /* Mejora la responsividad */
+
+
+    /* Para pantallas pequeñas, las tarjetas se apilan verticalmente */
+    @media (max-width: 576px) {
+        .cardOp {
+            width: 100%; /* Las tarjetas ocupan todo el ancho disponible en pantallas muy pequeñas */
+        }
+    }
+</style>
+
+@section('content')
+    <div class="container">
+        <h2>Portal</h2>
+        <div class="row">
+            <!-- Tarjeta Material de Apoyo -->
+            <div class="col-md-4 col-sm-12">
+                <div class="cardOp">
+                    <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Material de apoyo">
+                    <a href="/Material_Apoyo">Material de apoyo</a>
+                </div>
+            </div>
+
+            <!-- Tarjeta Grabaciones de Cursos -->
+            <div class="col-md-4 col-sm-12">
+                <div class="cardOp">
+                    <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Grabaciones de cursos">
+                    <a href="/cursos">Grabaciones de cursos</a>
+                </div>
+            </div>
+
+            <!-- Tarjeta Certificado -->
+            <div class="col-md-4 col-sm-12">
+                <div class="cardOp">
+                    <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Certificado">
+                    <a href="{{ route('certificado.mostrar') }}">Certificado</a>
+>>>>>>> 68957ce (cambios 02)
                 </div>
             </div>
         </div>
     </div>
 @endsection
+<<<<<<< HEAD
+=======
+
+>>>>>>> 68957ce (cambios 02)
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
