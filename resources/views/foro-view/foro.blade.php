@@ -37,11 +37,26 @@
         padding: 10px 0;
     }
 
-    .star{
-        color : goldenrod;
+    .star {
+        color: goldenrod;
 
     }
+    .contact-image {
+        width: 50%;
+        height: auto;
+        transition: transform 0.3s ease-in-out;
+    }
 
+    .contact-image:hover {
+        transform: scale(1.1);
+    }
+
+    .contact-form {
+        background: #edeef0;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom:50px;
+    }
 </style>
 @section('content')
     <div class="container my-5">
@@ -90,33 +105,34 @@
 
         <!-- Contact Form Section -->
         <div class="row contact-form mb-5">
-            <div class="col-md-6 d-flex align-items-center">
-                <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Image default"
-                    class="img-fluid w-100 h-100">
+            <div class="col-md-5 d-flex align-items-center justify-content-center">
+                <img src="{{ asset('img/ContactForm.webp') }}" alt="Imagen de contacto" class="img-fluid contact-image">
             </div>
-            <div class="col-md-6" style="margin-top: 10%">
-                <h4>Forumulario de contacto</h4>
+            <div class="col-md-7 p-4">
+                <h4 class="mb-3">Formulario de contacto</h4>
+                <p class="text-muted">¿Tienes alguna duda? Nosotros la resolveremos. Envíanos tu mensaje y te responderemos
+                    lo antes posible.</p>
                 <form action="{{ route('enviar.correo') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre"
                             value="{{ old('nombre') }}" required>
                         @error('nombre')
-                            <small>{{ $message }}</small>
+                            <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido"
                             value="{{ old('apellido') }}" required>
                         @error('apellido')
-                            <small>{{ $message }}</small>
+                            <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <input type="email" class="form-control" id="correo" name="correo" placeholder="correo"
+                        <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo"
                             value="{{ old('correo') }}" required>
                         @error('correo')
-                            <small>{{ $message }}</small>
+                            <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="mb-3">
@@ -146,7 +162,7 @@
             </div>
             <div class="col-md-4">
                 <div class="mb-3">
-                    <p >0%</p>
+                    <p>0%</p>
                     <div class="rating">
                         <i class="bi bi-star-fill star"></i>
                         <i class="bi bi-star-fill star"></i>
@@ -176,5 +192,3 @@
 
 @endsection
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-</script>
