@@ -8,14 +8,11 @@ use App\Http\Controllers\CertificadoController;
 use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\ShowCursosController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserCourseController;
 
-// Rutas sin autenticar
 Route::get('/', function () {
     return view('index');
 });
-
 
 Route::get('/informacion_cursos/{opcion}', [CourseInfoController::class, 'show']);
 Route::get('/colaboradores', [ColaboradorController::class, 'index']);
@@ -32,12 +29,12 @@ Route::post('/storeOrder', [ShowCursosController::class, 'storeOrder'])->name('o
 
 // Ruta para el éxito de la orden
 Route::get('/order/success', [ShowCursosController::class, 'orderSuccess'])->name('order.success');
-
 Route::post('/guardar-compra', [ShowCursosController::class, 'guardarCompra'])->name('guardar.compra');
-
 Route::get('/producto', function () {
     return view('product_View');
 });
+
+//Rutas para el blog y articulos
 Route::get('/foro', function () {
     return view('foro-view.foro');
 });
@@ -82,10 +79,8 @@ Route::middleware(['auth'])->group(function () {
     })->name('gracias');
 });
 
-
-
+//Rutas para froumario de pago
 Route::post('/payment/store', [ShowCursosController::class, 'store'])->name('payment.store');
-
 Route::get('/gracias', function () {
     return view('gracias');
 })->name('gracias');

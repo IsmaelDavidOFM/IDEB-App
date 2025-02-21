@@ -126,7 +126,6 @@
                 </form>
             </div>
         </div>
-        <br><br>
 
         <!-- Comments Section -->
         <div class="text-center my-4">
