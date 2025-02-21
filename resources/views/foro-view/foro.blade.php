@@ -96,7 +96,7 @@
             </div>
             <div class="col-md-6" style="margin-top: 10%">
                 <h4>Forumulario de contacto</h4>
-                <form action="" method="get">
+                <form action="{{ route('enviar.correo') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre"

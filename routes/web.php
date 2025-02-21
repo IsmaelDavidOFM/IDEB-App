@@ -9,6 +9,7 @@ use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\ShowCursosController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserCourseController;
+use App\Http\Controllers\ContactoController;
 
 Route::get('/', function () {
     return view('index');
@@ -41,6 +42,7 @@ Route::get('/foro', function () {
 Route::get('/blog', function () {
     return view('foro-view.blog');
 });
+Route::post('/enviar-correo', [ContactoController::class, 'enviarCorreo'])->name('enviar.correo');
 
 // Rutas para el inicio y cierre de sesión
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
