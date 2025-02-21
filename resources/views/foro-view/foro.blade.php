@@ -27,20 +27,6 @@
         resize: none;
     }
 
-    .rating span {
-        font-size: 1.5rem;
-        cursor: pointer;
-    }
-
-    #comentarios .comentario {
-        border-bottom: 1px solid #ddd;
-        padding: 10px 0;
-    }
-
-    .star {
-        color: goldenrod;
-
-    }
     .contact-image {
         width: 50%;
         height: auto;
@@ -55,7 +41,30 @@
         background: #edeef0;
         border-radius: 10px;
         padding: 20px;
-        margin-bottom:50px;
+        margin-bottom: 50px;
+    }
+</style>
+<style>
+    .rating {
+        display: flex;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    .star {
+        font-size: 24px;
+        color: #ccc;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .star.active {
+        color: gold;
+    }
+
+    .comentario {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        margin-top: 5px;
     }
 </style>
 @section('content')
@@ -145,7 +154,7 @@
 
         <!-- Comments Section -->
         <div class="text-center my-4">
-            <h1>Comentarios 0</h1>
+            <h1 id="comentarios-contador">Comentarios 0</h1>
         </div>
 
         <div class="row mb-4">
@@ -155,40 +164,99 @@
             <div class="col-md-4">
                 <label for="select-curso">Seleccione un curso:</label>
                 <select id="select-curso" class="form-select">
-                    <option value="curso1">Curso 1</option>
-                    <option value="curso2">Curso 2</option>
+                    <option selected disabled>Seleccione un curso</option>
+                    <option>Curso 1</option>
+                    <option>Curso 2</option>
                 </select>
-                <textarea id="mensaje" class="form-control my-3" placeholder="Escriba su comentario"></textarea>
+                <input id="mensaje" class="form-control my-3" placeholder="Escriba su comentario">
             </div>
             <div class="col-md-4">
                 <div class="mb-3">
-                    <p>0%</p>
+                    <p id="rating-text">0%</p>
                     <div class="rating">
-                        <i class="bi bi-star-fill star"></i>
-                        <i class="bi bi-star-fill star"></i>
-                        <i class="bi bi-star-fill star"></i>
-                        <i class="bi bi-star-fill star"></i>
-                        <i class="bi bi-star-fill star"></i>
+                        <i class="bi bi-star-fill star" data-value="1"></i>
+                        <i class="bi bi-star-fill star" data-value="2"></i>
+                        <i class="bi bi-star-fill star" data-value="3"></i>
+                        <i class="bi bi-star-fill star" data-value="4"></i>
+                        <i class="bi bi-star-fill star" data-value="5"></i>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary">Comentar</button>
+                <button type="button" class="btn btn-primary" id="btn-comentar">Comentar</button>
             </div>
         </div>
 
         <div id="comentarios" class="mt-4">
-            <!-- Example Comments -->
-            <div class="comentario">
-                <p><strong>Juan Pérez:</strong> Excelente curso, lo recomiendo totalmente!</p>
-            </div>
-            <div class="comentario">
-                <p><strong>María López:</strong> Muy interesante y fácil de entender.</p>
-            </div>
-            <div class="comentario">
-                <p><strong>Carlos Martínez:</strong> Aprendí mucho, muy buen contenido.</p>
-            </div>
+            <!-- Comentarios dinámicos -->
         </div>
     </div>
     <br><br><br><br><br>
 
 @endsection
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let estrellas = document.querySelectorAll(".star");
+        let comentarioInput = document.getElementById("mensaje").value;
+        let cursoSelect = document.getElementById("select-curso");
+        let btnComentar = document.getElementById("btn-comentar");
+        let comentariosDiv = document.getElementById("comentarios");
+        let contadorComentarios = document.getElementById("comentarios-contador");
+        let ratingText = document.getElementById("rating-text");
+        let rating = 0;
+        let comentarios = 0;
+
+        // Marcar estrellas
+        estrellas.forEach(star => {
+            star.addEventListener("click", function () {
+                rating = parseInt(this.dataset.value);
+                estrellas.forEach(s => s.classList.remove("active"));
+                for (let i = 0; i < rating; i++) {
+                    estrellas[i].classList.add("active");
+                }
+                ratingText.textContent = `${rating * 20}%`;
+            });
+        });
+
+        // Agregar comentario
+        btnComentar.addEventListener("click", function () {
+            let comentarioTexto = comentarioInput.value.trim();
+            let cursoSeleccionado = cursoSelect.options[cursoSelect.selectedIndex].text;
+
+            // Verificar si se seleccionó un curso
+            if (cursoSelect.selectedIndex === 0) {
+                alert("Por favor, seleccione un curso.");
+                return;
+            }
+
+            // Verificar si el comentario está vacío
+            if (comentarioTexto.length === 0) {
+                alert("El comentario no puede estar vacío.");
+                return;
+            }
+
+            // Verificar si se seleccionó una calificación
+            if (rating === 0) {
+                alert("Por favor, seleccione una calificación.");
+                return;
+            }
+
+            let nuevoComentario = document.createElement("div");
+            nuevoComentario.classList.add("comentario");
+            nuevoComentario.innerHTML = `<p><strong>Usuario:</strong> ${comentarioTexto} (Curso: ${cursoSeleccionado} - Calificación: ${rating} ⭐)</p>`;
+
+            comentariosDiv.prepend(nuevoComentario);
+
+            // Limpiar campos
+            comentarioInput.value = "";
+            estrellas.forEach(s => s.classList.remove("active"));
+            rating = 0;
+            ratingText.textContent = "0%";
+            cursoSelect.selectedIndex = 0;
+
+            // Actualizar contador de comentarios
+            comentarios++;
+            contadorComentarios.textContent = `Comentarios ${comentarios}`;
+        });
+    });
+</script>
