@@ -1,4 +1,4 @@
-@extends('templates.layout')
+@extends('template.layout')
 
 @section('title', 'Detalles del Curso')
 
