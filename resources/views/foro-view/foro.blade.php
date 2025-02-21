@@ -197,7 +197,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         let estrellas = document.querySelectorAll(".star");
-        let comentarioInput = document.getElementById("mensaje").value;
+        let comentarioInput = document.getElementById("mensaje");
         let cursoSelect = document.getElementById("select-curso");
         let btnComentar = document.getElementById("btn-comentar");
         let comentariosDiv = document.getElementById("comentarios");
