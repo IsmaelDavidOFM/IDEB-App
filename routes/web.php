@@ -31,9 +31,6 @@ Route::post('/storeOrder', [ShowCursosController::class, 'storeOrder'])->name('o
 // Ruta para el éxito de la orden
 Route::get('/order/success', [ShowCursosController::class, 'orderSuccess'])->name('order.success');
 Route::post('/guardar-compra', [ShowCursosController::class, 'guardarCompra'])->name('guardar.compra');
-Route::get('/producto', function () {
-    return view('product_View');
-});
 
 //Rutas para el blog y articulos
 Route::get('/foro', function () {
