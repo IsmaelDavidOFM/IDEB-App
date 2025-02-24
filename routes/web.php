@@ -44,7 +44,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Una vez iniciada la sesión: Rutas protegidas
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:students'])->group(function () {
     // Ruta para el certificado
     Route::get('/certificado', [CertificadoController::class, 'mostrarCertificado'])->name('certificado.mostrar');
     Route::get('/certificado/descargar', [CertificadoController::class, 'descargarCertificado'])->name('certificado.descargar');
@@ -74,6 +74,7 @@ Route::middleware(['auth'])->group(function () {
         return view('gracias');
     })->name('gracias');
 });
+
 
 //Rutas para froumario de pago
 Route::post('/payment/store', [ShowCursosController::class, 'store'])->name('payment.store');

@@ -71,7 +71,7 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    @auth
+                    @if (Auth::guard('web')->check() || Auth::guard('students')->check())
                         <li class="nav-item me-3">
                             <a href="{{ url('/carrito') }}" class="btn position-relative p-0"
                                 style="border: none; background: transparent;">
@@ -86,7 +86,8 @@
                         <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                 @csrf
-                                <button type="submit" class="btn p-0" style="background-color: transparent; border: none;">
+                                <button type="submit" class="btn p-0"
+                                    style="background-color: transparent; border: none;">
                                     <i class="bi bi-box-arrow-left" style="font-size: 1.5rem; color: #fff;">
                                         salir
                                     </i>
@@ -97,7 +98,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Iniciar Sesión</a>
                         </li>
-                    @endauth
+                    @endif
                 </ul>
             </div>
         </div>

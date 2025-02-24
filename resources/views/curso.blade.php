@@ -90,16 +90,22 @@
                     @endif
                 </p>
                 <p class="precio">Costo: ${{ number_format($curso->CostodelCurso, 2) }}</p>
-                @auth
+                @php
+                    $userGuard = Auth::guard('web')->check(); // Verifica autenticación en users
+                    $studentGuard = Auth::guard('students')->check(); // Verifica autenticación en students
+                @endphp
+
+                @if ($userGuard || $studentGuard)
                     <form action="{{ route('carrito.add', $curso->id) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-primary w-100">Agregar al carrito</button>
                     </form>
-                    @else
+                @else
                     <a href="{{ route('form.show', $curso->id) }}" class="btn btn-primary btn-comprar">
                         Comprar
                     </a>
-                @endauth
+                @endif
+
 
                 <!-- Botón para ver otro curso -->
                 <a href="{{ url('/cursos_online') }}" class="btn btn-ver-otro-curso">

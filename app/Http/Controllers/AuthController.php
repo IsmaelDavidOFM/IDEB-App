@@ -28,6 +28,11 @@ class AuthController extends Controller
             return redirect()->intended('/participantes'); // Redirige si la autenticación es exitosa
         }
 
+        if (Auth::guard('students')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/participantes'); // Redirige si es un estudiante
+        }
+
         // Si la autenticación falla
         return back()->withErrors([
             'email' => 'Las credenciales proporcionadas no coinciden con nuestros registros.',
