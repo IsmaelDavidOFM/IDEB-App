@@ -145,22 +145,28 @@
         </div>
 
         <div id="formulario-compra">
-            <form  method="POST">
+            <form method="POST">
                 @csrf
 
                 <!-- Sección 1: Registro del usuario -->
                 <div id="seccion-registro" class="seccion activa">
                     <h5>Datos de Registro</h5>
 
-                    <input type="text" name="nombre" id="nombre" placeholder="Nombre" value="{{ old('nombre') }}"
+                    <input type="text" name="name" id="name" placeholder="Nombre" value="{{ old('name') }}"
                         required>
-                    @error('nombre')
+                    @error('name')
                         <div style="color: red;">{{ $message }}</div>
                     @enderror
 
-                    <input type="text" name="apellido" id="apellido" placeholder="Apellidos"
-                        value="{{ old('apellido') }}" required>
-                    @error('apellido')
+                    <input type="text" name="lastName" id="lastName" placeholder="Apellidos"
+                        value="{{ old('lastName') }}" required>
+                    @error('lastName')
+                        <div style="color: red;">{{ $message }}</div>
+                    @enderror
+
+                    <input type="number" name="age" id="age" placeholder="Edad" value="{{ old('age') }}"
+                        required>
+                    @error('age')
                         <div style="color: red;">{{ $message }}</div>
                     @enderror
 
@@ -175,6 +181,13 @@
                     @error('password')
                         <div style="color: red;">{{ $message }}</div>
                     @enderror
+
+                    <input type="text" name="contactPhone" id="contactPhone" placeholder="Teléfono de contacto"
+                        value="{{ old('contactPhone') }}" required>
+                    @error('contactPhone')
+                        <div style="color: red;">{{ $message }}</div>
+                    @enderror
+
                     <button type="button" onclick="continuarASiguienteSeccion('seccion-pago')" class="paypal-btn">
                         Continuar
                     </button>
@@ -185,7 +198,6 @@
                     <h5>Método de Pago</h5>
                     <div id="paypal-button-conteiner"></div>
                 </div>
-
             </form>
         </div>
     </div>
@@ -238,10 +250,12 @@
         },
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
-                const nombre = document.getElementById('nombre').value;
-                const apellido = document.getElementById('apellido').value;
+                const name = document.getElementById('name').value;
+                const lastName = document.getElementById('lastName').value;
+                const age = document.getElementById('age').value;
                 const email = document.getElementById('email').value;
                 const password = document.getElementById('password').value;
+                const contactPhone = document.getElementById('contactPhone').value;
                 const cursoId = {{ $curso->id }}; // ID del curso desde Blade
                 const precio = {{ $curso->CostodelCurso }};
 
@@ -252,10 +266,12 @@
                             'X-CSRF-TOKEN': '{{ csrf_token() }}',
                         },
                         body: JSON.stringify({
-                            nombre,
-                            apellido,
+                            name,
+                            lastName,
+                            age,
                             email,
                             password,
+                            contactPhone,
                             cursoId,
                             precio,
                         }),
@@ -265,7 +281,7 @@
                         if (data.success) {
                             console.log('Datos devueltos:', data);
                             alert('Pago completado. Redirigiendo...');
-                            window.location.href='/gracias';
+                            window.location.href = '/';
                         } else {
                             alert('Hubo un error al procesar la solicitud');
                         }
@@ -275,6 +291,7 @@
                     });
             });
         },
+
         onCancel: function(data) {
             alert('Pago cancelado');
         }
