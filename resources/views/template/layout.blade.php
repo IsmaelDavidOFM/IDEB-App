@@ -27,40 +27,176 @@
         margin-top: auto;
         /* Mantiene el footer siempre abajo */
     }
+
+    /* NAVBAR ESTILOS */
+    .custom-navbar {
+        background: linear-gradient(90deg, #323335, #1a1b1b);
+        padding: 10px 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand img {
+        max-height: 60px;
+    }
+
+    .nav-link {
+        color: #fff;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: #f8d210;
+    }
+
+    /* DROPDOWN */
+    .dropdown-menu {
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+        border: none;
+    }
+
+    .dropdown-item {
+        color: #333;
+        font-weight: 500;
+        transition: background 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+        background: #2a5298;
+        color: #fff;
+    }
+
+    /* ANIMACIÓN PARA EL DROPDOWN */
+    .animate-dropdown {
+        animation: fadeInDown 0.3s ease-in-out;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* BOTÓN DE CIERRE DE SESIÓN */
+    .logout-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .logout-btn:hover {
+        color: #f8d210;
+    }
+
+    /* ÍCONO DEL CARRITO */
+    .cart-icon {
+        font-size: 1.5rem;
+        color: #fff;
+        position: relative;
+    }
+
+    .cart-icon .badge {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        font-size: 0.8rem;
+        padding: 4px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+        .navbar-nav {
+            text-align: center;
+        }
+
+        .cart-icon {
+            font-size: 1.3rem;
+        }
+
+        .logout-btn {
+            font-size: 0.9rem;
+        }
+    }
+
+    .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-menu {
+        transition: all 0.3s ease-in-out;
+        min-width: 200px;
+    }
+
+    .dropdown-menu .dropdown-item {
+        transition: background 0.3s ease;
+    }
+
+    .dropdown-menu .dropdown-item:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .navbar-nav .dropdown-toggle::after {
+        display: none !important;
+    }
+
+    .navbar-nav .nav-item {
+        margin-right: 20px;
+        /* Ajusta el valor según lo necesites */
+    }
 </style>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a href="{{ url('/') }}">
-                <img src="/image/Instituto_IDEB_Logotipo_0.png" alt="" width="150" height="80"
-                    class="d-inline-block align-text-top">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+        <div class="container">
+            <!-- Logo -->
+            <a href="{{ url('/') }}" class="navbar-brand">
+                <img src="/image/Instituto_IDEB_Logotipo_0.png" alt="Logo" width="150" height="80"
+                    class="logo">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+
+            <!-- Botón para menú en móviles -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
+
+            <!-- Contenido del menú -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <!-- Menú desplegable: Información de Cursos -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+                        <a class="nav-link dropdown-toggle" href="#" id="courseInfoDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            Informacion de cursos
+                            Información de Cursos
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="{{ url('/informacion_cursos/flayAdds') }}">Flayers y
-                                    anuncios </a></li>
-                            <li><a class="dropdown-item"
+                        <ul class="dropdown-menu bg-dark border-0" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item text-light"
+                                    href="{{ url('/informacion_cursos/flayAdds') }}">Flayers y anuncios</a></li>
+                            <li><a class="dropdown-item text-light"
                                     href="{{ url('/informacion_cursos/promociones') }}">Promociones</a></li>
-                            <li><a class="dropdown-item" href="{{ url('/informacion_cursos/fechas') }}">Fechas de
-                                    inscripcion</a></li>
+                            <li><a class="dropdown-item text-light"
+                                    href="{{ url('/informacion_cursos/fechas') }}">Fechas de inscripción</a></li>
                         </ul>
                     </li>
+
+                    <!-- Otras opciones del menú -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/cursos_online">Cursos en linea</a>
+                        <a class="nav-link" href="/cursos_online">Cursos en Línea</a>
                     </li>
                     <li class="nav-item">
-                        @auth
+                        @auth('students')
                             <a class="nav-link" href="{{ url('/participantes') }}">Participantes</a>
                         @else
                             <a class="nav-link" href="{{ url('/login') }}">Participantes</a>
@@ -70,32 +206,32 @@
                         <a class="nav-link" href="/colaboradores">Colaboradores</a>
                     </li>
                 </ul>
+
+                <!-- Sección de usuario / carrito -->
                 <ul class="navbar-nav ms-auto">
-                    @auth
+                    @auth('students')
+                        <!-- Ícono del carrito -->
                         <li class="nav-item me-3">
-                            <a href="{{ url('/carrito') }}" class="btn position-relative p-0"
-                                style="border: none; background: transparent;">
-                                <i class="bi bi-book" style="font-size: 2rem; color: #fff;"></i>
-                                <span
-                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                    style="font-size: .8rem; width: 1.3rem; height: 1.3rem; display: flex; align-items: center; justify-content: center;">
+                            <a href="{{ url('/carrito') }}" class="btn position-relative p-0 cart-icon">
+                                <i class="bi bi-book"></i>
+                                <span class="badge rounded-pill bg-danger">
                                     {{ session()->has('cart') ? count(session()->get('cart')) : 0 }}
                                 </span>
                             </a>
                         </li>
+
+                        <!-- Botón de cierre de sesión -->
                         <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                 @csrf
-                                <button type="submit" class="btn p-0" style="background-color: transparent; border: none;">
-                                    <i class="bi bi-box-arrow-left" style="font-size: 1.5rem; color: #fff;">
-                                        salir
-                                    </i>
+                                <button type="submit" class="btn logout-btn">
+                                    <i class="bi bi-box-arrow-left"></i> Salir
                                 </button>
                             </form>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Iniciar Sesión</a>
+                            <a class="nav-link login-btn" href="{{ route('login') }}">Iniciar Sesión</a>
                         </li>
                     @endauth
                 </ul>
