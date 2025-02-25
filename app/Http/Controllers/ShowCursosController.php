@@ -7,6 +7,7 @@ use App\Models\Curso;
 use App\Models\Student;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Order;
+use App\Models\User;
 use App\Mail\VerificacionCompra;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,15 @@ class ShowCursosController extends Controller
 
         // Pasar los datos a la vista
         return view('cursos_online', compact('cursos'));
+    }
+    public function homeview()
+    {
+        // Obtener todos los colaboradores de la base de datos
+        $cursos = Curso::all();
+        $users = User::all();
+
+        // Pasar los datos a la vista
+        return view('index', compact('cursos', 'users'));
     }
     public function show($id)
     {

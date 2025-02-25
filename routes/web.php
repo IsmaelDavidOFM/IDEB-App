@@ -12,9 +12,11 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserCourseController;
 use App\Http\Controllers\ContactoController;
 
-Route::get('/', function () {
-    return view('index');
-});
+
+//Ruta para index
+Route::get('/', [ShowCursosController::class, 'homeview']);
+
+/////////
 
 Route::get('/informacion_cursos/{opcion}', [CourseInfoController::class, 'show']);
 Route::get('/colaboradores', [ColaboradorController::class, 'index']);

@@ -33,7 +33,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a href="{{ url('/') }}">
-                <img src="/img/Instituto_IDEB_Logotipo_0.png" alt="" width="150" height="80"
+                <img src="/image/Instituto_IDEB_Logotipo_0.png" alt="" width="150" height="80"
                     class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
