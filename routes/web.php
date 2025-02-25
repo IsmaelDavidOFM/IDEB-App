@@ -77,7 +77,7 @@ Route::middleware(['auth:students'])->group(function () {
 
 
 //Rutas para froumario de pago
-Route::post('/payment/store', [ShowCursosController::class, 'store'])->name('payment.store');
+Route::get('/payment/store', [ShowCursosController::class, 'store'])->name('payment.store');
 Route::get('/gracias', function () {
     return view('gracias');
 })->name('gracias');
