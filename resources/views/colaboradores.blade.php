@@ -4,7 +4,7 @@
 <style>
     /* Aseguramos que el contenedor de los colaboradores tenga un margen adecuado */
     .employees {
-        padding:0;
+        padding: 0;
     }
 
     /* Aseguramos que las imágenes sean redondas y se ajusten bien */
@@ -12,37 +12,39 @@
         max-width: 90%;
         height: auto;
     }
+
     .colb {
         width: 100%;
         position: relative;
-        margin: 0 auto; /* Centrado horizontal */
+        margin: 0 auto;
+        /* Centrado horizontal */
         padding: 20px;
-        border-radius: 8px; /* Opcional, para bordes redondeados */
+        border-radius: 8px;
+        /* Opcional, para bordes redondeados */
     }
 </style>
 @section('content')
     <div id="employees" class="employees py-5 text-center w-100">
-        <h2>Colaboradores</h2><br><br>
+        <h2>Equipo de trabajo</h2><br><br>
 
         @php
             // Agrupar a los colaboradores por su posición
-            $colaboradoresPorPosicion = $colaboradores->groupBy('position');
+            $usersPorPosicion = $users->groupBy('puesto');
         @endphp
 
-        @foreach ($colaboradoresPorPosicion as $position => $colaboradoresDePosicion)
-            <h3>{{ strtoupper($position) }}</h3> <!-- Mostrar el nombre de la posición -->
+        @foreach ($usersPorPosicion as $puesto => $usersDePosicion)
+            <h3>{{ strtoupper($puesto) }}</h3> <!-- Mostrar el nombre de la posición -->
             <div class="colb row justify-content-center mb-5">
-                @foreach ($colaboradoresDePosicion as $colaborador)
+                @foreach ($usersDePosicion as $user)
                     <div class="col-9 col-sm-3 col-md-2 col-lg-3 mb-2">
-                        <!-- Ajustamos las columnas según el tamaño de la pantalla -->
                         <div class="card text-center shadow-sm h-100 p-3">
-                            <!-- Rutas modificadas para las imágenes -->
-                            <img src="{{ $colaborador->picture }}" alt="Colaborador {{ $loop->iteration }}"
-                                class="card-img-top rounded-circle mx-auto" style="width: 100px; height: 100px;">
+                            <!-- Verifica si el usuario tiene una imagen, de lo contrario usa una imagen por defecto -->
+                            <img src="{{ $user->picture ?: '/image/images.jpeg' }}"
+                                alt="Colaborador {{ $loop->iteration }}" class="card-img-top rounded-circle mx-auto"
+                                style="width: 100px; height: 100px;">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $colaborador->nombre }}</h5>
-                                <p class="card-text">{{ $colaborador->position }}</p> <!-- Muestra la posición -->
-                                <p class="card-text">{{ $colaborador->description }}</p> <!-- Descripción -->
+                                <h5 class="card-title">{{ $user->name }}</h5>
+                                <p class="card-text">{{ $user->puesto }}</p> <!-- Muestra la posición -->
                             </div>
                         </div>
                     </div>

@@ -193,7 +193,11 @@
 
                     <!-- Otras opciones del menú -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/cursos_online">Cursos en Línea</a>
+                        @if (Request::is('/'))
+                            <a class="nav-link" href="#courses">Cursos en Línea</a>
+                        @else
+                            <a class="nav-link" href="{{ url('/cursos_online') }}">Cursos en Línea</a>
+                        @endif
                     </li>
                     <li class="nav-item">
                         @auth('students')
@@ -203,7 +207,11 @@
                         @endauth
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/colaboradores">Colaboradores</a>
+                        @if (Request::is('/'))
+                            <a class="nav-link" href="#colaboradores">Colaboradores</a>
+                        @else
+                            <a class="nav-link" href="{{ url('/colaboradores') }}">Colaboradores</a>
+                        @endif
                     </li>
                 </ul>
 

@@ -59,7 +59,7 @@
         </div>
 
         <!-- Sección de colaboradores -->
-        <div id="employees" class="employees py-5 text-center w-100 d-flex align-items-center">
+        <div id="colaboradores" class="employees py-5 text-center w-100 d-flex align-items-center">
             <div class="container">
                 <h2>Nuestro equipo</h2>
 
