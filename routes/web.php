@@ -16,10 +16,13 @@ use App\Http\Controllers\ContactoController;
 //Ruta para index
 Route::get('/', [ShowCursosController::class, 'homeview']);
 
-/////////
-
+//Informacion de cursos
 Route::get('/informacion_cursos/{opcion}', [CourseInfoController::class, 'show']);
+
+//Colaboradores
 Route::get('/colaboradores', [ColaboradorController::class, 'index']);
+
+//Cursos
 Route::get('/cursos_online', [ShowCursosController::class, 'index']);
 Route::get('/curso/{id}', [ShowCursosController::class, 'show'])->name('curso.show');
 
