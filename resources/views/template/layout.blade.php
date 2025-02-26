@@ -261,7 +261,7 @@
                 </div>
             </div>
 
-            <div class="row align-items-center">
+            <div class="row align-items-center d-flex justify-content-center">
                 <!-- Información de Contacto -->
                 <div class="col-md-4 text-md-start text-center mb-3">
                     <p style="font-size: 1.2rem;"><strong>Dirección:</strong> Calle 123, Ciudad</p>
@@ -269,9 +269,12 @@
                     <p style="font-size: 1.2rem;"><strong>Teléfono:</strong> 232454356</p>
                 </div>
 
-                <!-- Botón Foro -->
+                <!-- Botón Foro (si no estamos en /foro) -->
                 <div class="col-md-4 text-center mb-3">
-                    <a href="/foro" class="btn btn-primary" style="font-size: 1.5rem; padding: 12px 24px;">Foro</a>
+                    @if (!Request::is('foro'))
+                        <a href="/foro" class="btn btn-primary"
+                            style="font-size: 1.5rem; padding: 12px 24px;">Foro</a>
+                    @endif
                 </div>
 
                 <!-- Redes Sociales -->

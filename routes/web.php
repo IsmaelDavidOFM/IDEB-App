@@ -8,9 +8,8 @@ use App\Http\Controllers\CertificadoController;
 use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\ShowCursosController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserCourseController;
-use App\Http\Controllers\ContactoController;
+use App\Http\Controllers\SocialController;
 
 
 //Ruta para index
@@ -39,9 +38,9 @@ Route::get('/order/success', [ShowCursosController::class, 'orderSuccess'])->nam
 Route::post('/guardar-compra', [ShowCursosController::class, 'guardarCompra'])->name('guardar.compra');
 
 //Rutas para el blog y articulos
-Route::post('/enviar-correo', [ContactoController::class, 'enviarCorreo'])->name('enviar.correo');
-Route::get('/foro', [CommentController::class, 'showView'])->name('show.foro');
-Route::get('/blog', [CommentController::class, 'showblog'])->name('show.blog');
+Route::post('/enviar-correo', [SocialController::class, 'enviarCorreo'])->name('enviar.correo');
+Route::get('/foro', [SocialController::class, 'showView'])->name('show.foro');
+Route::get('/blog', [SocialController::class, 'showblog'])->name('show.blog');
 
 // Rutas para el inicio y cierre de sesión
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

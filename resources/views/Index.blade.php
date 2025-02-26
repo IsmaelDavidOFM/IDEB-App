@@ -5,11 +5,9 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     <section>
-        <!-- Video de bienvenida -->
-        <video class="w-100" autoplay loop muted>
-            <source src="{{ asset('video/video.mp4') }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+        <div class="intro d-flex align-items-center p-5 w-100" style="height: 50vh;">
+            <img src="/image/Instituto_IDEB_Logotipo_0.png" alt="Instituto IDEB" class="img-fluid w-100 h-100" style="object-fit: cover;">
+        </div>
 
         <!-- Descripción del instituto -->
         <div class="intro vh-100 d-flex align-items-center p-5 w-100">
@@ -97,7 +95,7 @@
     // Hace que el carrusel avance automáticamente
     document.addEventListener("DOMContentLoaded", function () {
         const myCarousel = new bootstrap.Carousel(document.getElementById('employeeCarousel'), {
-            interval: 2000, // Cambia cada 3 segundos
+            interval: 1000, // Cambia cada 3 segundos
             ride: "carousel"
         });
     });

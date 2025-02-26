@@ -18,13 +18,8 @@
         color: black;
     }
 
-
     .contact-from img {
         object-fit: cover;
-    }
-
-    textarea {
-        resize: none;
     }
 
     .contact-image {
@@ -42,24 +37,6 @@
         border-radius: 10px;
         padding: 20px;
         margin-bottom: 50px;
-    }
-</style>
-<style>
-    .rating {
-        font-size: 30px;
-        cursor: pointer;
-        color: gray;
-    }
-
-    .star.checked {
-        color: gold;
-    }
-
-    .comentario {
-        background: #f1f1f1;
-        padding: 10px;
-        margin: 5px 0;
-        border-radius: 5px;
     }
 </style>
 @section('content')
@@ -110,7 +87,7 @@
         <!-- Contact Form Section -->
         <div class="row contact-form mb-5">
             <div class="col-md-5 d-flex align-items-center justify-content-center">
-                <img src="{{ asset('img/ContactForm.webp') }}" alt="Imagen de contacto" class="img-fluid contact-image">
+                <img src="{{ asset('image/ContactForm.webp') }}" alt="Imagen de contacto" class="img-fluid contact-image">
             </div>
             <div class="col-md-7 p-4">
                 <h4 class="mb-3">Formulario de contacto</h4>
@@ -184,7 +161,6 @@
 
     </div>
     <br><br><br><br><br>
-
 @endsection
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 

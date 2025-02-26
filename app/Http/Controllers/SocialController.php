@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class ContactoController extends Controller
+class SocialController extends Controller
 {
+    public function showView(){
+        return view('foro-view.foro');
+    }
+    public function showblog(){
+        return view('foro-view.blog');
+    }
     public function enviarCorreo(Request $request)
     {
         // Validar los datos del formulario
