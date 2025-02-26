@@ -4,11 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\Curso;
+use Illuminate\Support\Facades\Auth;
 class SocialController extends Controller
 {
-    public function showView(){
-        return view('foro-view.foro');
+    public function showViews()
+    {
+        // Obtener los últimos 3 artículos
+        $articles = Article::latest()->take(3)->get();
+        $cursos = Curso::all();
+
+        return view('foro-view.foro', compact('articles','cursos'));
     }
     public function showblog(){
         return view('foro-view.blog');
@@ -44,5 +52,24 @@ class SocialController extends Controller
         });
 
         return back()->with('success', 'Tu mensaje ha sido enviado correctamente.');
+    }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'curso' => 'required|string',
+            'mensaje' => 'required|string|max:500',
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        $comment = new Comment();
+        $comment->curso = $request->curso;
+        $comment->mensaje = $request->mensaje;
+        $comment->rating = $request->rating;
+        $comment->user_id = Auth::check() ? Auth::id() : null; // Manejar usuario autenticado
+        $comment->nombre_usuario = Auth::check() ? Auth::user()->name : 'Anónimo';
+
+        $comment->save(); // Guardar manualmente
+
+        return response()->json(['message' => 'Comentario agregado con éxito']);
     }
 }

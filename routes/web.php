@@ -39,7 +39,7 @@ Route::post('/guardar-compra', [ShowCursosController::class, 'guardarCompra'])->
 
 //Rutas para el blog y articulos
 Route::post('/enviar-correo', [SocialController::class, 'enviarCorreo'])->name('enviar.correo');
-Route::get('/foro', [SocialController::class, 'showView'])->name('show.foro');
+Route::get('/foro', [SocialController::class, 'showViews'])->name('show.foro');
 Route::get('/blog', [SocialController::class, 'showblog'])->name('show.blog');
 
 // Rutas para el inicio y cierre de sesión
@@ -85,3 +85,7 @@ Route::get('/payment/store', [ShowCursosController::class, 'store'])->name('paym
 Route::get('/gracias', function () {
     return view('gracias');
 })->name('gracias');
+
+use App\Http\Controllers\CommentController;
+
+Route::post('/comments', [SocialController::class, 'store'])->name('comment.store');

@@ -44,45 +44,27 @@
         <!-- Blog Section -->
         <div class="row mb-5">
             <h4>Blog</h4><br><br>
-            <div class="col-md-3">
-                <div class="card_pre">
-                    <a href="/blog">
-                        <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Image default"
-                            class="img-fluid">
-                        <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad possimus voluptas dolores vel
-                            fuga ratione aspernatur.</span>
-                    </a>
+            @foreach ($articles as $article)
+                <div class="col-md-3">
+                    <div class="card_pre">
+                        <a href="{{ url('/blog') }}">
+                            <img src="{{ $article->image_url ?? 'https://cdn-icons-png.flaticon.com/512/12048/12048902.png' }}"
+                                alt="Image default" class="img-fluid">
+                            <span>{{ Str::limit($article->title, 100) }}</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card_pre">
-                    <a href="/blog">
-                        <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Image default"
-                            class="img-fluid">
-                        <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad possimus voluptas dolores vel
-                            fuga ratione aspernatur.</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card_pre">
-                    <a href="/blog">
-                        <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Image default"
-                            class="img-fluid">
-                        <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad possimus voluptas dolores vel
-                            fuga ratione aspernatur.</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3 " style="text-align: center; margin-top: 100px ;">
+            @endforeach
+            <div class="col-md-3" style="text-align: center; margin-top: 100px;">
                 <div class="card_pre" style="border:none">
-                    <a href="/blog">
+                    <a href="{{ url('/blog') }}">
                         <img src="https://cdn-icons-png.flaticon.com/512/17/17340.png" alt="Image default" class="img-fluid"
                             width="100px">
                     </a>
                 </div>
             </div>
         </div><br><br>
+
 
         <!-- Contact Form Section -->
         <div class="row contact-form mb-5">
