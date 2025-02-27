@@ -22,7 +22,10 @@ class SocialController extends Controller
     }
     public function showblog()
     {
-        return view('foro-view.blog');
+        $articles = Article::all();
+        $cursos = Curso::all();
+        $comments = Comment::all();
+        return view('foro-view.blog', compact('articles', 'cursos', 'comments'));
     }
     public function enviarCorreo(Request $request)
     {
@@ -56,21 +59,17 @@ class SocialController extends Controller
 
         return back()->with('success', 'Tu mensaje ha sido enviado correctamente.');
     }
-    public function storeComment(Request $request)
+    public function store(Request $request)
     {
         $comment = new Comment();
-        $comment->user_id = Auth::id(); // Obtiene el usuario autenticado
+        $comment->user_id = Auth::check() ? Auth::id() : 0; // Si el usuario no está autenticado, se asigna 0
         $comment->curso_id = $request->curso_id;
-        $comment->name = Auth::user()->name; // Nombre del usuario autenticado
-        $comment->email = Auth::user()->email; // Email del usuario autenticado
-        $comment->content = $request->content;
+        $comment->email = Auth::check() ? Auth::user()->email : 'Sin email';
+        $comment->content = $request->comentario;
+        $comment->rating = $request->rating;
         $comment->save();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Comentario guardado exitosamente',
-            'comment' => $comment
-        ]);
+        return redirect('/foro');
     }
     public function getComments()
     {

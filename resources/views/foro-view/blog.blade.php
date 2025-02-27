@@ -60,19 +60,24 @@
         padding: 10px 0px;
     }
 
-    .star {
-        color: goldenrod;
-
-    }
-
-    /*Estilos de seccion de articulos*/
-
     .tab-content {
         display: none;
     }
 
     .tab-content.active {
         display: block;
+    }
+
+</style>
+<style>
+    .star {
+        font-size: 2rem;
+        cursor: pointer;
+        color: gray;
+    }
+
+    .star.checked {
+        color: gold;
     }
 </style>
 @section('content')
@@ -94,13 +99,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-tab="article1" onclick="showTab(event, 'article1')">Artículo 1</a>
+                        <a class="nav-link" href="#" data-tab="article1" onclick="showTab(event, 'article1')">Artículo
+                            1</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-tab="article2" onclick="showTab(event, 'article2')">Artículo 2</a>
+                        <a class="nav-link" href="#" data-tab="article2" onclick="showTab(event, 'article2')">Artículo
+                            2</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-tab="article3" onclick="showTab(event, 'article3')">Artículo 3</a>
+                        <a class="nav-link" href="#" data-tab="article3" onclick="showTab(event, 'article3')">Artículo
+                            3</a>
                     </li>
                 </ul>
             </div>
@@ -130,50 +138,54 @@
             <p><strong>Autor:</strong> Carlos García</p>
         </div>
     </div>
-    <!--Seccion de comentarios de articulos-->
+    <!-- Comments Section -->
     <div class="text-center my-4">
-        <h1>Comentarios 0</h1>
+        <h1 id="comentarios-count">Comentarios {{ count($comments) }}</h1>
     </div>
 
-    <div id="fat" class="row">
-        <div class="col-md-4">
-            <img src="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png"
-                alt="Imagen del curso" class="img-fluid" width="100px">
-        </div>
-        <div id="OpArti" class="col-md-4">
-            <label for="select-curso">Seleccione un curso:</label>
-            <select id="select-curso" class="form-select">
-                <option value="curso1">Curso 1</option>
-                <option value="curso2">Curso 2</option>
-            </select>
-            <textarea id="mensaje" class="form-control my-3" placeholder="Escriba su comentario"></textarea>
-        </div>
-        <div id="cal" class="col-md-4">
-            <div class="mb-3">
-                <p style="text-align: center;">0%</p>
-                <div id="rating" class="rating">
-                    <i class="bi bi-star-fill star"></i>
-                    <i class="bi bi-star-fill star"></i>
-                    <i class="bi bi-star-fill star"></i>
-                    <i class="bi bi-star-fill star"></i>
-                    <i class="bi bi-star-fill star"></i>
-                </div>
+    <form id="form-comentario" action="{{ route('guardar.comentario') }}" method="POST">
+        @csrf
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <img src="#" alt="Imagen del curso" class="img-fluid">
             </div>
-            <button type="button" class="btn btn-primary">Comentar</button>
-        </div>
-    </div>
 
+            <div class="col-md-4">
+                <label for="select-curso">Seleccione un curso:</label>
+                <select id="select-curso" name="curso_id" class="form-select" required>
+                    <option value="">Seleccione...</option>
+                    @foreach ($cursos as $curso)
+                        <option value="{{ $curso->id }}">{{ $curso->NombredelCurso }}</option>
+                    @endforeach
+                </select>
+
+                <label class="mt-3">Calificación:</label>
+                <div id="rating">
+                    <span class="star" data-value="1">&#9733;</span>
+                    <span class="star" data-value="2">&#9733;</span>
+                    <span class="star" data-value="3">&#9733;</span>
+                    <span class="star" data-value="4">&#9733;</span>
+                    <span class="star" data-value="5">&#9733;</span>
+                </div>
+                <input type="hidden" id="rating-value" name="rating" value="0" required>
+
+                <textarea id="comentario" name="comentario" class="form-control my-3" rows="3" placeholder="Escriba su comentario"
+                    required></textarea>
+            </div>
+
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary">Comentar</button>
+            </div>
+        </div>
+    </form>
     <div id="comentarios" class="mt-4">
-        <!-- Example Comments -->
-        <div class="comentario">
-            <p><strong>Juan Pérez:</strong> Excelente curso, lo recomiendo totalmente!</p>
-        </div>
-        <div class="comentario">
-            <p><strong>María López:</strong> Muy interesante y fácil de entender.</p>
-        </div>
-        <div class="comentario">
-            <p><strong>Carlos Martínez:</strong> Aprendí mucho, muy buen contenido.</p>
-        </div>
+        @foreach ($comments as $comment)
+            <div class="comment-box p-3 mb-3 border rounded">
+                <strong>{{ $comment->name }}</strong> - <small>{{ $comment->created_at->format('d/m/Y H:i') }}</small>
+                <p>{{ $comment->content }}</p>
+            </div>
+        @endforeach
     </div>
 @endsection
 <script>
@@ -186,3 +198,21 @@
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let ratingValue = 0;
+
+        document.querySelectorAll(".star").forEach(star => {
+            star.addEventListener("click", function() {
+                ratingValue = this.getAttribute("data-value");
+                document.getElementById("rating-value").value = ratingValue;
+
+                // Cambiar el color de las estrellas seleccionadas
+                document.querySelectorAll(".star").forEach(s => s.style.color = "#ccc");
+                for (let i = 0; i < ratingValue; i++) {
+                    document.querySelectorAll(".star")[i].style.color = "gold";
+                }
+            });
+        });
+    });
+</script>

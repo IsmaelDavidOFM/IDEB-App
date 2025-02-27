@@ -88,4 +88,6 @@ Route::get('/gracias', function () {
 
 
 
-Route::post('/comments/store', [SocialController::class, 'storeComment'])->name('comments.store');
+use App\Http\Controllers\CommentController;
+
+Route::post('/guardar-comentario', [SocialController::class, 'store'])->name('guardar.comentario');

@@ -45,6 +45,7 @@
         cursor: pointer;
         color: gray;
     }
+
     .star.checked {
         color: gold;
     }
@@ -121,37 +122,42 @@
             <h1 id="comentarios-count">Comentarios {{ count($comments) }}</h1>
         </div>
 
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <img src="#" alt="Imagen del curso" class="img-fluid">
-            </div>
+        <form id="form-comentario" action="{{ route('guardar.comentario') }}" method="POST">
+            @csrf
 
-            <div class="col-md-4">
-                <label for="select-curso">Seleccione un curso:</label>
-                <select id="select-curso" class="form-select">
-                    <option value="">Seleccione...</option>
-                    @foreach ($cursos as $curso)
-                        <option value="{{ $curso->id }}">{{ $curso->NombredelCurso }}</option>
-                    @endforeach
-                </select>
-
-                <label class="mt-3">Calificación:</label>
-                <div id="rating">
-                    <span class="star" data-value="1">&#9733;</span>
-                    <span class="star" data-value="2">&#9733;</span>
-                    <span class="star" data-value="3">&#9733;</span>
-                    <span class="star" data-value="4">&#9733;</span>
-                    <span class="star" data-value="5">&#9733;</span>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <img src="#" alt="Imagen del curso" class="img-fluid">
                 </div>
 
-                <textarea id="comentario" class="form-control my-3" rows="3" placeholder="Escriba su comentario"></textarea>
-            </div>
+                <div class="col-md-4">
+                    <label for="select-curso">Seleccione un curso:</label>
+                    <select id="select-curso" name="curso_id" class="form-select" required>
+                        <option value="">Seleccione...</option>
+                        @foreach ($cursos as $curso)
+                            <option value="{{ $curso->id }}">{{ $curso->NombredelCurso }}</option>
+                        @endforeach
+                    </select>
 
-            <div class="col-md-4">
-                <button id="btn-comentar" type="button" class="btn btn-primary">Comentar</button>
-            </div>
-        </div>
+                    <label class="mt-3">Calificación:</label>
+                    <div id="rating">
+                        <span class="star" data-value="1">&#9733;</span>
+                        <span class="star" data-value="2">&#9733;</span>
+                        <span class="star" data-value="3">&#9733;</span>
+                        <span class="star" data-value="4">&#9733;</span>
+                        <span class="star" data-value="5">&#9733;</span>
+                    </div>
+                    <input type="hidden" id="rating-value" name="rating" value="0" required>
 
+                    <textarea id="comentario" name="comentario" class="form-control my-3" rows="3" placeholder="Escriba su comentario"
+                        required></textarea>
+                </div>
+
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Comentar</button>
+                </div>
+            </div>
+        </form>
         <div id="comentarios" class="mt-4">
             @foreach ($comments as $comment)
                 <div class="comment-box p-3 mb-3 border rounded">
@@ -160,49 +166,25 @@
                 </div>
             @endforeach
         </div>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                let rating = 0;
-
-                // Sistema de estrellas
-                document.querySelectorAll(".star").forEach(star => {
-                    star.addEventListener("click", function () {
-                        rating = this.getAttribute("data-value"); // Obtiene el valor de la estrella seleccionada
-                        document.querySelectorAll(".star").forEach(s => s.classList.remove("checked"));
-                        this.classList.add("checked");
-                        this.previousElementSibling?.classList.add("checked");
-                        this.previousElementSibling?.previousElementSibling?.classList.add("checked");
-                        this.previousElementSibling?.previousElementSibling?.previousElementSibling?.classList.add("checked");
-                        this.previousElementSibling?.previousElementSibling?.previousElementSibling?.previousElementSibling?.classList.add("checked");
-                    });
-                });
-
-                document.getElementById("btn-comentar").addEventListener("click", function () {
-                    let selectCurso = document.getElementById("select-curso");
-                    let cursoSeleccionado = selectCurso.options[selectCurso.selectedIndex].text;
-                    let mensaje = document.getElementById("comentario").value;
-                    let usuarioId = {{ auth()->check() ? auth()->user()->id : 0 }};
-                    let usuarioEmail = "{{ auth()->check() ? auth()->user()->email : 'Sin email' }}";
-
-                    if (selectCurso.value.trim() === "") {
-                        console.log("No has seleccionado un curso.");
-                    } else {
-                        console.log("Curso seleccionado: " + cursoSeleccionado);
-                    }
-
-                    if (mensaje.trim() === "") {
-                        console.log("No hay mensaje.");
-                    } else {
-                        console.log("Mensaje: " + mensaje);
-                    }
-
-                    console.log("ID del usuario: " + usuarioId);
-                    console.log("Email del usuario: " + usuarioEmail);
-                    console.log("Calificación: " + (rating > 0 ? rating : "No seleccionada"));
-                });
-            });
-        </script>
     </div>
     <br><br><br><br><br>
 @endsection
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let ratingValue = 0;
+
+        document.querySelectorAll(".star").forEach(star => {
+            star.addEventListener("click", function() {
+                ratingValue = this.getAttribute("data-value");
+                document.getElementById("rating-value").value = ratingValue;
+
+                // Cambiar el color de las estrellas seleccionadas
+                document.querySelectorAll(".star").forEach(s => s.style.color = "#ccc");
+                for (let i = 0; i < ratingValue; i++) {
+                    document.querySelectorAll(".star")[i].style.color = "gold";
+                }
+            });
+        });
+    });
+</script>
