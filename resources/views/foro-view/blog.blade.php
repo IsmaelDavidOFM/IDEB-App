@@ -67,7 +67,6 @@
     .tab-content.active {
         display: block;
     }
-
 </style>
 <style>
     .star {
@@ -89,7 +88,7 @@
         </div>
     </div>
 
-    <!--Seccion de de articulos-->
+    <!-- Sección de artículos -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -98,45 +97,30 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-tab="article1" onclick="showTab(event, 'article1')">Artículo
-                            1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-tab="article2" onclick="showTab(event, 'article2')">Artículo
-                            2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-tab="article3" onclick="showTab(event, 'article3')">Artículo
-                            3</a>
-                    </li>
+                    @foreach ($articles as $index => $article)
+                        <li class="nav-item">
+                            <a class="nav-link {{ $index == 0 ? 'active' : '' }}" href="#"
+                                onclick="showTab(event, {{ $index }})">
+                                {{ Str::limit($article->title)}}
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
     </nav>
 
     <div class="container mt-4">
-        <div id="article1" class="tab-content active">
-            <h2>Título del Artículo 1</h2>
-            <p><strong>Fecha de Publicación:</strong> 07 de Febrero, 2025</p>
-            <img src="/path-to-article1.jpg" class="img-fluid" alt="Artículo 1">
-            <p>Texto del artículo 1.</p>
-            <p><strong>Autor:</strong> Juan Pérez</p>
-        </div>
-        <div id="article2" class="tab-content">
-            <h2>Título del Artículo 2</h2>
-            <p><strong>Fecha de Publicación:</strong> 08 de Febrero, 2025</p>
-            <img src="/path-to-article2.jpg" class="img-fluid" alt="Artículo 2">
-            <p>Texto del artículo 2.</p>
-            <p><strong>Autor:</strong> María López</p>
-        </div>
-        <div id="article3" class="tab-content">
-            <h2>Título del Artículo 3</h2>
-            <p><strong>Fecha de Publicación:</strong> 09 de Febrero, 2025</p>
-            <img src="/path-to-article3.jpg" class="img-fluid" alt="Artículo 3">
-            <p>Texto del artículo 3.</p>
-            <p><strong>Autor:</strong> Carlos García</p>
-        </div>
+        @foreach ($articles as $index => $article)
+            <div id="article{{ $index }}" class="tab-content" style="display: {{ $index == 0 ? 'block' : 'none' }};">
+                <h2>{{ $article->title }}</h2>
+                <p><strong>Fecha de Publicación:</strong> {{ $article->published_at ?? 'Sin fecha' }}</p>
+                <img src="{{ $article->image_url ?? 'https://cdn-icons-png.flaticon.com/512/12048/12048902.png' }}"
+                    class="img-fluid" alt="{{ $article->title }}">
+                <p>{{ $article->content }}</p>
+                <p><strong>Autor:</strong> {{ $article->author ?? 'Desconocido' }}</p>
+            </div>
+        @endforeach
     </div>
     <!-- Comments Section -->
     <div class="text-center my-4">
@@ -215,4 +199,25 @@
             });
         });
     });
+</script>
+<script>
+    function showTab(event, index) {
+        event.preventDefault(); // Evitar que la página se recargue
+
+        // Ocultar todos los artículos
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.style.display = 'none';
+        });
+
+        // Mostrar solo el artículo seleccionado
+        document.getElementById(`article${index}`).style.display = 'block';
+
+        // Quitar la clase 'active' de todos los enlaces
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+
+        // Agregar la clase 'active' al enlace seleccionado
+        event.target.classList.add('active');
+    }
 </script>
