@@ -70,9 +70,8 @@ Route::middleware(['auth:students'])->group(function () {
     Route::get('/carrito', [CartController::class, 'show'])->name('carrito.show');
     Route::post('/carrito/add/{id}', [CartController::class, 'add'])->name('carrito.add');
     Route::post('/carrito/remove/{id}', [CartController::class, 'remove'])->name('carrito.remove');
-    Route::post('/orden/crear', [CartController::class, 'crearOrden'])->name('orden.crear');
-
-    Route::post('/payment/store', [CartController::class, 'store'])->name('orders.store');
+    Route::post('/carrito/vaciar', [CartController::class, 'vaciar'])->name('carrito.vaciar');
+    Route::post('/compra', [CartController::class, 'store'])->name('compra.store');
 
     Route::get('/gracias', function () {
         return view('gracias');
