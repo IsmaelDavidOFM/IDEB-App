@@ -87,12 +87,6 @@
                     <a href="{{ route('certificado.mostrar') }}">Certificado</a>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12">
-                <div class="cardOp">
-                    <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Certificado">
-                    <a href="{{ route('certificado.mostrar') }}">Certificado</a>
-                </div>
-            </div>
         </div>
     </div>
 @endsection

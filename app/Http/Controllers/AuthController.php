@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Student;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -46,5 +47,30 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login'); // Redirige al formulario de inicio de sesión
+    }
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'age' => 'required|integer|min:5',
+            'email' => 'required|string|email|max:255|unique:students',
+            'password' => 'required|string|min:6|confirmed',
+            'contactPhone' => 'required|string|max:20',
+        ]);
+
+        $student = Student::create([
+            'name' => $request->name,
+            'lastName' => $request->lastName,
+            'age' => $request->age,
+            'email' => $request->email,
+            'password' => $request->password, // Se encripta automáticamente en el modelo
+            'contactPhone' => $request->contactPhone,
+            'status' => 'activo',
+        ]);
+
+        Auth::login($student); // Iniciar sesión automáticamente después del registro
+
+        return redirect()->route('/login')->with('success', 'Registro exitoso. ¡Bienvenido!');
     }
 }

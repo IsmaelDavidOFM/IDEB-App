@@ -160,6 +160,7 @@
             </div>
         @endif
     </div>
+    <br><br><br>
 @endsection
 
 <!-- Script para cambiar la vista -->

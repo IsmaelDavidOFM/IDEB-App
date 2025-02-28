@@ -5,19 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Hash;
 
-class Student extends Authenticatable
+class Student extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'students';
+    protected $table = 'students'; // Asegura que el modelo use la tabla correcta
 
     protected $fillable = [
         'name',
         'lastName',
         'age',
         'email',
-        'email_verified_at',
         'password',
         'contactPhone',
         'status',
@@ -29,8 +30,12 @@ class Student extends Authenticatable
     ];
 
     protected $casts = [
-        'password' => 'hashed',
         'email_verified_at' => 'datetime',
     ];
-}
 
+    // Mutador para encriptar la clave automáticamente al asignarla
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
+}

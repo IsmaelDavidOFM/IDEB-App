@@ -88,6 +88,8 @@ Route::get('/gracias', function () {
 
 
 
-use App\Http\Controllers\CommentController;
-
 Route::post('/guardar-comentario', [SocialController::class, 'store'])->name('guardar.comentario');
+
+Route::post('/student/register', [AuthController::class, 'register'])->name('student.register');
+
+// Iniciar sesión

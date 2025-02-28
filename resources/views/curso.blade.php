@@ -101,7 +101,7 @@
                         <button type="submit" class="btn btn-primary w-100">Agregar al carrito</button>
                     </form>
                 @else
-                    <a href="{{ route('form.show', $curso->id) }}" class="btn btn-primary btn-comprar">
+                    <a href="{{ route('login') }}" class="btn btn-primary btn-comprar">
                         Comprar
                     </a>
                 @endif
