@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Providers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use App\Models\Cart;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +22,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('*', function ($view) {
+            if (Auth::guard('students')->check()) { // Verifica si el usuario está autenticado en el guard 'student'
+                $cart = Cart::where('student_id', Auth::guard('students')->id())->first();
+                $items = $cart ? json_decode($cart->items, true) : [];
+                $cartCount = array_sum(array_column($items, 'quantity')); // Sumar todas las cantidades de productos
+            } else {
+                $cartCount = 0;
+            }
+
+            $view->with('cartCount', $cartCount); // Hacer disponible la variable en todas las vistas
+        });
     }
 }

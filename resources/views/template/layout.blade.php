@@ -223,11 +223,10 @@
                             <a href="{{ url('/carrito') }}" class="btn position-relative p-0 cart-icon">
                                 <i class="bi bi-book"></i>
                                 <span class="badge rounded-pill bg-danger">
-                                    {{ session()->has('cart') ? count(session()->get('cart')) : 0 }}
+                                    {{ $cartCount }}
                                 </span>
                             </a>
                         </li>
-
                         <!-- Botón de cierre de sesión -->
                         <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST" class="d-inline">
