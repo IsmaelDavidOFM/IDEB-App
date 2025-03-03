@@ -18,7 +18,7 @@ class UserCourseController extends Controller
         // Obtener los cursos relacionados al usuario a través de la tabla orders
         $cursos = DB::table('orders')
             ->join('cursos', 'orders.curso_id', '=', 'cursos.id') // Relacionar orders con cursos
-            ->where('orders.user_id', $userId) // Filtrar por el usuario autenticado
+            ->where('orders.student_id', $userId) // Filtrar por el usuario autenticado
             ->where('cursos.status', true) // Solo cursos con status true
             ->select('cursos.*') // Seleccionar todos los datos de cursos
             ->get();

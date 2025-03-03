@@ -122,26 +122,20 @@ class CartController extends Controller
                 return response()->json(['success' => false, 'message' => 'Carrito vacío.']);
             }
 
-            // Crear orden
-            $order = Order::create([
-                'total' => $request->total,
-                'status' => 'paid',
-                'paypal_order_id' => $request->orderID,
-                'user_id' => Auth::id(),
-            ]);
+            // Obtener los cursos del carrito
+            $items = json_decode($cart->items, true);
 
-            // Guardar detalles
-            foreach (json_decode($cart->items, true) as $item) {
-                $order->details()->create([
-                    'product_name' => $item['name'],
-                    'description' => $item['description'],
-                    'price' => $item['price'],
-                    'quantity' => $item['quantity'],
-                    'modality' => $item['modality'],
+            foreach ($items as $item) {
+                // Crear la orden por cada curso en el carrito
+                $order = Order::create([
+                    'student_id' => Auth::id(), // Verifica que este valor sea válido
+                    'curso_id' => $item['id'],
+                    'total_price' => $item['price'],
+                    'status' => 'paid',
                 ]);
             }
 
-            // Vaciar carrito
+            // Vaciar el carrito
             $cart->items = json_encode([]);
             $cart->save();
 
@@ -150,4 +144,5 @@ class CartController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
+
 }

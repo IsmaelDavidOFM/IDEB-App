@@ -62,7 +62,6 @@
             </div>
         @endif
     </div>
-
 @endsection
 <script>
     paypal.Buttons({
@@ -75,9 +74,35 @@
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: {{ $total }} // Total dinámico
+                        value: {{ $total }} // Total dinámico del carrito
                     }
                 }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Pago completado por ' + details.payer.name.given_name);
+
+                // Enviar datos al backend
+                fetch("{{ route('compra.store') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        total: {{ $total }}
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Compra registrada exitosamente.");
+                    } else {
+                        alert("Hubo un problema al guardar la orden: " + data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
             });
         },
         onCancel: function(data) {

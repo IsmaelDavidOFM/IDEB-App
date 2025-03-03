@@ -14,11 +14,9 @@ class Order extends Model
 
     // Definir los campos que pueden ser llenados masivamente
     protected $fillable = [
-        'customer_id',
-        'category_id',
-        'fecha_solicitada',
-        'status'
+        'student_id', 'curso_id', 'total_price', 'status'
     ];
+
 
     // Si el campo 'created_at' o 'updated_at' no existe en la base de datos, puedes desactivarlos
     public $timestamps = true;
