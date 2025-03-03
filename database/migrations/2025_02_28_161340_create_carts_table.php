@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('students')->onDelete('cascade');
+            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
             $table->json('items')->nullable(); // Guardará los productos en formato JSON
             $table->timestamps();
         });

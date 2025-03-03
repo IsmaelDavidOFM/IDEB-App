@@ -10,6 +10,7 @@ use App\Http\Controllers\ShowCursosController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserCourseController;
 use App\Http\Controllers\SocialController;
+use App\Http\Controllers\MaterialController;
 
 
 //Ruta para index
@@ -72,6 +73,11 @@ Route::middleware(['auth:students'])->group(function () {
     Route::post('/carrito/remove/{id}', [CartController::class, 'remove'])->name('carrito.remove');
     Route::post('/carrito/vaciar', [CartController::class, 'vaciar'])->name('carrito.vaciar');
     Route::post('/compra', [CartController::class, 'store'])->name('compra.store');
+
+
+    Route::get('/biblioteca', [MaterialController::class, 'index'])->name('materials.index');
+    Route::get('/biblioteca/download/{id}', [MaterialController::class, 'download'])->name('materials.download');
+
 
     Route::get('/gracias', function () {
         return view('gracias');

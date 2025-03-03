@@ -68,7 +68,7 @@
             <div class="col-md-4 col-sm-12">
                 <div class="cardOp">
                     <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Material de apoyo">
-                    <a href="/material_apoyo">Material de apoyo</a>
+                    <a href="/biblioteca">Material de apoyo</a>
                 </div>
             </div>
 
