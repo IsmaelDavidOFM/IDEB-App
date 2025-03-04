@@ -3,30 +3,47 @@
 @section('title', 'Certificado')
 
 @section('content')
-    <div class="container mt-4">
-        <h2 class="text-center">Tu Certificado</h2>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Tu Certificado</h2>
 
-        <!-- Certificado Visual -->
-        <div class="text-center">
-            <img src="https://via.placeholder.com/300x150.png" alt="Certificado de curso" class="mb-3">
-
-            <p>Este es un certificado demostrativo que te muestra cómo se verá tu certificado final.</p>
-
-            <div class="mt-4">
-                <h3>Certificado de Curso</h3>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Certificado de [Tu Nombre]</h5>
-                        <p class="card-text">
-                            Este es un certificado demostrativo de que has completado el curso.
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- Vista previa del certificado en PDF -->
+            <div class="card mb-4">
+                <div class="card-header text-center bg-secondary text-white">
+                    Vista Previa del Certificado
+                </div>
+                <div class="card-body p-0">
+                    <!-- Se usa <object> para embeber el PDF. Reemplaza 'sample_certificate.pdf' por la ruta real -->
+                    <object data="{{ asset('certificates/sample_certificate.pdf') }}" type="application/pdf" width="100%" height="500">
+                        <p class="text-center p-3">
+                            Tu navegador no soporta la vista previa de PDF.
+                            <a href="{{ asset('certificates/sample_certificate.pdf') }}">Descarga el certificado</a> para verlo.
                         </p>
-                    </div>
+                    </object>
                 </div>
             </div>
 
-            <!-- Botón de descarga deshabilitado -->
-            <p class="mt-3">No puedes descargar el certificado hasta que completes el curso.</p>
-            <button class="btn btn-success" disabled>Descargar Certificado</button> <!-- Botón deshabilitado -->
+            <!-- Detalles del certificado -->
+            <div class="card mb-4">
+                <div class="card-header text-center bg-info text-white">
+                    Detalles del Certificado
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Certificado de {{ $user->name ?? 'Tu Nombre' }}</h5>
+                    <p class="card-text">
+                        Este certificado demuestra que has completado el curso:
+                    </p>
+                    <p class="card-text">
+                        <strong>Duración del Curso:</strong>
+
+                    </p>
+                </div>
+            </div>
+
+            <!-- Botón de descarga condicionado -->
+
         </div>
     </div>
+</div>
 @endsection

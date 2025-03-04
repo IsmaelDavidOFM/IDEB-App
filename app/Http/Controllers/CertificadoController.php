@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Curso;
 
 class CertificadoController extends Controller
 {
     // Método para mostrar el certificado
     public function mostrarCertificado()
     {
-        return view('students.certificado');  // No es necesario verificar sesión o estado del curso.
+        $curso = Curso::all();
+        return view('students.certificado',compact('curso'));  // No es necesario verificar sesión o estado del curso.
     }
 }

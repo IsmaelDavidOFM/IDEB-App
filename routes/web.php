@@ -13,7 +13,6 @@ use App\Http\Controllers\SocialController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\CursoController;
 
-
 //Ruta para index
 Route::get('/', [ShowCursosController::class, 'homeview']);
 
