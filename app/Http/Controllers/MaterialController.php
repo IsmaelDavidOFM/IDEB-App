@@ -17,6 +17,12 @@ class MaterialController extends Controller
     public function download($id)
     {
         $material = Material::findOrFail($id);
-        return Storage::download($material->file_path);
+
+        // Verificar si el archivo existe
+        if (!Storage::exists('public/' . $material->file_path)) {
+            abort(404, 'El archivo no se encuentra en el servidor.');
+        }
+
+        return Storage::download('public/' . $material->file_path);
     }
 }

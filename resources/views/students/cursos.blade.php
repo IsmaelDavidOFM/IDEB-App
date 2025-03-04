@@ -1,100 +1,105 @@
 @extends('template.layout')
 
-@section('title', 'MateriaL-Cursos')
+@section('title', 'Cursos - Plataforma')
+
 <style>
-    .content {
+    .container {
         padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
-    .accordion {
-        margin-top: 20px;
-    }
-
-    .accordion-item {
-        border: 1px solid #ccc;
-        margin-bottom: 10px;
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .accordion-item-content {
-        display: none;
-        padding: 10px;
-        border-top: 1px solid #ccc;
+    .card {
+        width: 300px;
+        margin: 15px;
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
         overflow: hidden;
+        transition: transform 0.3s;
     }
 
-    .accordion-item-content video {
-        width: 100%;
-        max-width: 600px;
-        margin-bottom: 10px;
+    .card:hover {
+        transform: scale(1.05);
     }
 
-    .details {
+    .card-header {
+        background: #007bff;
+        color: white;
+        padding: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .card-content {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .progress-container {
+        background: #f3f3f3;
+        height: 8px;
+        border-radius: 4px;
+        overflow: hidden;
         margin-top: 10px;
     }
 
-    @media (min-width: 768px) {
-        .accordion-item-content {
-            display: flex;
-            flex-wrap: wrap;
-        }
+    .progress-bar {
+        height: 8px;
+        background: #28a745;
+        width: 0%;
+        transition: width 0.5s;
+    }
 
-        .accordion-item-content video {
-            width: 50%;
-        }
+    .btn {
+        display: inline-block;
+        background: #007bff;
+        color: white;
+        padding: 8px 12px;
+        margin-top: 10px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+    }
 
-        .details {
-            width: 50%;
-            margin-top: 0;
-            padding-left: 20px;
-        }
+    .btn:hover {
+        background: #0056b3;
     }
 </style>
-@section('content')
-    <div class="content">
-        <h1 style="text-align: center;">Cursos Disponibles</h1>
 
+@section('content')
+    <div class="container">
         @if ($cursos->isEmpty())
-            <p style="text-align: center;">No tienes cursos disponibles.</p>
+            <p style="text-align: center; width: 100%;">No tienes cursos disponibles.</p>
         @else
-            <div class="accordion">
-                @foreach ($cursos as $curso)
-                    <div class="accordion-item">
-                        <h3>{{ $curso->NombredelCurso }}</h3>
-                        <div class="accordion-item-content">
-                            <video src="{{ $curso->DriveTemario }}" controls></video>
-                            <div class="details">
-                                <h4>Título: {{ $curso->NombredelCurso }}</h4>
-                                <p>Descripción: {{ $curso->DescripciondeCurso }}</p>
-                                <p>Duración: {{ $curso->Duracioncurso }}</p>
-                            </div>
+            @foreach ($cursos as $curso)
+                <div class="card">
+                    <div class="card-header">{{ $curso->NombredelCurso }}</div>
+                    <div class="card-content">
+                        <p>{{ $curso->DescripciondeCurso }}</p>
+                        <p><strong>Duración:</strong> {{ $curso->Duracioncurso }}</p>
+
+                        <div class="progress-container">
+                            <div class="progress-bar" id="progress-{{ $curso->id }}"></div>
                         </div>
+
+                        <!-- Al hacer clic, redirige a la vista individual del curso -->
+                        <a href="{{ route('curso.detalle', $curso->id) }}" class="btn">Ver Curso</a>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         @endif
     </div>
 @endsection
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var items = document.querySelectorAll(".accordion-item");
-        var progressBar = document.querySelector(".progress-bar");
-
-        items.forEach(function(item, index) {
-            var content = item.querySelector(".accordion-item-content");
-            item.addEventListener("click", function() {
-                content.style.display = content.style.display === "block" ? "none" : "block";
-                updateProgressBar();
-            });
+        document.querySelectorAll(".progress-bar").forEach(bar => {
+            let courseId = bar.id.split("-")[1];
+            let progress = localStorage.getItem("progress-" + courseId) || 0;
+            bar.style.width = progress + "%";
         });
-
-        function updateProgressBar() {
-            var viewedItems = document.querySelectorAll(".accordion-item-content[style*='display: block']")
-                .length;
-            var totalItems = items.length;
-            var progress = (viewedItems / totalItems) * 100;
-            progressBar.style.height = progress + "vh";
-        }
     });
 </script>

@@ -54,24 +54,41 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
-        align-items: center;
+        background-color: rgba(0, 0, 0, 0.9);
+        /* Fondo más oscuro */
         justify-content: center;
+        align-items: center;
     }
 
     .modal-content {
-        background: white;
-        padding: 20px;
+        background-color: #fff;
+        width: 90%;
+        height: 90%;
+        max-width: 1200px;
+        /* Mayor tamaño */
+        max-height: 90%;
         border-radius: 10px;
-        width: 80%;
-        max-width: 600px;
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 15px;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 35px;
+        cursor: pointer;
+        color: #333;
+        font-weight: bold;
     }
 
     iframe {
+        flex-grow: 1;
+        /* El iframe ocupa todo el espacio disponible */
         width: 100%;
-        height: 400px;
+        height: 100%;
         border: none;
     }
 
@@ -108,9 +125,12 @@
                         <p>{{ $material->author ?? 'Autor desconocido' }} ({{ $material->year ?? 'Año no disponible' }})</p>
                     </div>
                     <div class="botones">
-                        <button class="btn btn-primary preview-btn"
-                            data-file="{{ asset($material->file_path) }}">Previsualizar</button>
-                        <a href="{{ asset($material->file_path) }}" download class="btn btn-secondary">Descargar</a>
+                        <a href="#" class="btn btn-info preview-btn"
+                            data-file="{{ asset('storage/' . $material->file_path) }}">
+                            Previsualizar
+                        </a>
+                        <a href="{{ asset('storage/' . $material->file_path) }}" download
+                            class="btn btn-secondary">Descargar</a>
                     </div>
                 </div>
             @endforeach
@@ -151,50 +171,38 @@
         });
 
         // Previsualización de documentos
-        const previewButtons = document.querySelectorAll('.preview-btn');
-        const modal = document.getElementById('preview-modal');
-        const closeModal = modal.querySelector('.close');
-        const frame = document.getElementById('preview-frame');
-        const errorMessage = document.getElementById('error-message');
+        const modal = document.getElementById("preview-modal");
+        const frame = document.getElementById("preview-frame");
+        const errorMessage = document.getElementById("error-message");
+        const closeBtn = document.querySelector(".close");
 
-        previewButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const filePath = this.dataset.file;
-                frame.src = filePath;
+        document.querySelectorAll(".preview-btn").forEach(btn => {
+            btn.addEventListener("click", function(event) {
+                event.preventDefault();
+                const fileUrl = this.getAttribute("data-file");
 
-                // Comprobamos si el archivo existe
-                fetch(filePath, {
-                        method: 'HEAD'
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            frame.style.display = 'block';
-                            errorMessage.style.display = 'none';
-                        } else {
-                            frame.style.display = 'none';
-                            errorMessage.style.display = 'block';
-                        }
-                    })
-                    .catch(() => {
-                        frame.style.display = 'none';
-                        errorMessage.style.display = 'block';
-                    });
+                if (fileUrl) {
+                    frame.src = fileUrl;
+                    frame.style.display = "block";
+                    errorMessage.style.display = "none";
+                } else {
+                    frame.style.display = "none";
+                    errorMessage.style.display = "block";
+                }
 
-                modal.style.display = 'flex';
+                modal.style.display = "flex"; // Ahora usa flexbox para centrar
             });
         });
 
-        // Cerrar modal
-        closeModal.addEventListener('click', function() {
-            modal.style.display = 'none';
-            frame.src = ''; // Reset iframe
+        closeBtn.addEventListener("click", function() {
+            modal.style.display = "none";
+            frame.src = ""; // Limpia el iframe al cerrar
         });
 
-        // Cerrar modal haciendo clic fuera de la caja
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-                frame.src = ''; // Reset iframe
+        window.addEventListener("click", function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                frame.src = "";
             }
         });
     });

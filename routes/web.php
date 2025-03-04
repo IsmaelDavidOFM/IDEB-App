@@ -11,6 +11,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserCourseController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\CursoController;
 
 
 //Ruta para index
@@ -50,6 +51,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Una vez iniciada la sesión: Rutas protegidas
 Route::middleware(['auth:students'])->group(function () {
+    //Cursos del usuario
+    Route::get('/cursosUser', [CursoController::class, 'index'])->name('cursos.index');
+    Route::get('/cursoUser/{id}', [CursoController::class, 'show'])->name('curso.detalle');
+
     // Ruta para el certificado
     Route::get('/certificado', [CertificadoController::class, 'mostrarCertificado'])->name('certificado.mostrar');
     Route::get('/certificado/descargar', [CertificadoController::class, 'descargarCertificado'])->name('certificado.descargar');
@@ -60,9 +65,8 @@ Route::middleware(['auth:students'])->group(function () {
     })->name('participantes.portal');
 
     // Ruta para la vista de Material de Apoyo
-    Route::get('/material_apoyo', function () {
-        return view('students.material_Lib');
-    })->name('students.material_Lib');
+    Route::get('/biblioteca', [MaterialController::class, 'index'])->name('materials.index');
+    Route::get('/biblioteca/download/{id}', [MaterialController::class, 'download'])->name('materials.download');
 
     // Ruta para la vista de cursos
     Route::get('/cursos', [UserCourseController::class, 'show'])->name('cursos.show');
@@ -74,16 +78,10 @@ Route::middleware(['auth:students'])->group(function () {
     Route::post('/carrito/vaciar', [CartController::class, 'vaciar'])->name('carrito.vaciar');
     Route::post('/compra', [CartController::class, 'store'])->name('compra.store');
 
-
-    Route::get('/biblioteca', [MaterialController::class, 'index'])->name('materials.index');
-    Route::get('/biblioteca/download/{id}', [MaterialController::class, 'download'])->name('materials.download');
-
-
     Route::get('/gracias', function () {
         return view('gracias');
     })->name('gracias');
 });
-
 
 //Rutas para froumario de pago
 Route::get('/payment/store', [ShowCursosController::class, 'store'])->name('payment.store');
@@ -91,10 +89,6 @@ Route::get('/gracias', function () {
     return view('gracias');
 })->name('gracias');
 
-
-
 Route::post('/guardar-comentario', [SocialController::class, 'store'])->name('guardar.comentario');
 
 Route::post('/student/register', [AuthController::class, 'register'])->name('student.register');
-
-// Iniciar sesión
