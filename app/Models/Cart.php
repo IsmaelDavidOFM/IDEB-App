@@ -9,7 +9,7 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'items'];
+    protected $fillable = ['student_id', 'items'];
 
     protected $casts = [
         'items' => 'array', // Convierte automáticamente el JSON en un array

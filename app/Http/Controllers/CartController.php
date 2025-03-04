@@ -17,8 +17,8 @@ class CartController extends Controller
             return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver el carrito.');
         }
 
-        $studentId = Auth::guard('students')->id(); // Obtiene el ID del estudiante autenticado
-        $cart = Cart::where('student_id', $studentId)->first(); // Busca el carrito del estudiante
+        $studentId = Auth::guard('students')->id(); // Obtener el ID del estudiante autenticado
+        $cart = Cart::where('student_id', $studentId)->first(); // Buscar el carrito del estudiante
 
         $items = $cart ? json_decode($cart->items, true) : [];
 
@@ -32,8 +32,13 @@ class CartController extends Controller
     // Agregar producto al carrito
     public function add(Request $request, $id)
     {
-        if (!Auth::check()) {
+        if (!Auth::guard('students')->check()) {
             return redirect()->route('login')->with('error', 'Debes iniciar sesión para agregar productos.');
+        }
+
+        $studentId = Auth::guard('students')->id();
+        if (!$studentId) {
+            return redirect()->route('login')->with('error', 'Error en la autenticación.');
         }
 
         $curso = Curso::find($id);
@@ -42,10 +47,10 @@ class CartController extends Controller
         }
 
         // Obtener o crear el carrito del usuario
-        $cart = Cart::firstOrCreate(['student_id' => Auth::id()]);
+        $cart = Cart::firstOrCreate(['student_id' => $studentId], ['items' => json_encode([])]);
 
         // Obtener productos actuales
-        $items = $cart->items ? json_decode($cart->items, true) : [];
+        $items = json_decode($cart->items, true) ?? [];
 
         // Buscar si el curso ya está en el carrito
         $index = array_search($id, array_column($items, 'id'));
@@ -73,16 +78,18 @@ class CartController extends Controller
     // Eliminar producto del carrito
     public function remove($id)
     {
-        if (!Auth::check()) {
+        if (!Auth::guard('students')->check()) {
             return redirect()->route('login')->with('error', 'Debes iniciar sesión.');
         }
 
-        $cart = Cart::where('student_id', Auth::id())->first();
+        $studentId = Auth::guard('students')->id();
+        $cart = Cart::where('student_id', $studentId)->first();
+
         if (!$cart) {
             return redirect()->route('carrito.show')->with('error', 'Carrito vacío.');
         }
 
-        $items = json_decode($cart->items, true);
+        $items = json_decode($cart->items, true) ?? [];
         $items = array_filter($items, function ($item) use ($id) {
             return $item['id'] != $id;
         });
