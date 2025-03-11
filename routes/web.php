@@ -12,6 +12,8 @@ use App\Http\Controllers\UserCourseController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 //Ruta para index
 Route::get('/', [ShowCursosController::class, 'homeview']);
@@ -91,3 +93,8 @@ Route::get('/gracias', function () {
 Route::post('/guardar-comentario', [SocialController::class, 'store'])->name('guardar.comentario');
 
 Route::post('/student/register', [AuthController::class, 'register'])->name('student.register');
+
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'updatePassword'])->name('password.update');

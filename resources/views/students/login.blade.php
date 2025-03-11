@@ -98,6 +98,8 @@
             </div>
             <button type="submit">Iniciar Sesión</button>
             <p>¿No tienes cuenta? <a href="#" onclick="toggleForm()">Regístrate</a></p>
+            <p><a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a></p>
+
         </form>
 
         <form id="register-form" action="{{ route('student.register') }}" method="POST" style="display: none;">
