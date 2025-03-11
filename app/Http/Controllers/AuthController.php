@@ -46,7 +46,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login'); // Redirige al formulario de inicio de sesión
+        return redirect('login'); // Redirige al formulario de inicio de sesión
     }
     public function register(Request $request)
     {
@@ -71,6 +71,6 @@ class AuthController extends Controller
 
         Auth::login($student); // Iniciar sesión automáticamente después del registro
 
-        return redirect()->route('/login')->with('success', 'Registro exitoso. ¡Bienvenido!');
+        return redirect()->route('login')->with('success', 'Registro exitoso. ¡Bienvenido!');
     }
 }

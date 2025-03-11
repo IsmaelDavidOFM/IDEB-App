@@ -25,26 +25,28 @@ class ResetPasswordController extends Controller
             'password' => 'required|confirmed|min:8',
         ]);
 
+        // Obtener el registro de la tabla password_resets
         $reset = DB::table('password_resets')->where('email', $request->email)->first();
 
         if (!$reset || !Hash::check($request->token, $reset->token)) {
             return back()->with('error', 'Token inválido o expirado.');
         }
 
+        // Buscar al usuario en la tabla students
         $student = Student::where('email', $request->email)->first();
 
         if (!$student) {
             return back()->with('error', 'El correo no existe.');
         }
 
-        // Cambiar la contraseña
-        $student->password = Hash::make($request->password);
+        // Cambiar la contraseña y guardar
+        $student->password = $request->password; // Laravel se encarga de encriptar
         $student->save();
 
-        // Eliminar el token usado
+        // Eliminar el registro de password_resets después de cambiar la contraseña
         DB::table('password_resets')->where('email', $request->email)->delete();
 
-        // Enviar notificación a soporte
+        // Enviar notificación de cambio de contraseña
         Mail::raw("El usuario con correo {$request->email} ha cambiado su contraseña el " . Carbon::now(), function ($message) {
             $message->to(env('MAIL_FROM_ADDRESS'))->subject('Cambio de contraseña');
         });

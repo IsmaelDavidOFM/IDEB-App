@@ -30,21 +30,26 @@ class ForgotPasswordController extends Controller
             return back()->with('error', 'El correo electrónico no existe.');
         }
 
-        
-
-        // Crear un token
+        // Generar un token seguro
         $token = Str::random(60);
-        DB::table('password_resets')->updateOrInsert(
-            ['email' => $request->email],
-            ['token' => Hash::make($token), 'created_at' => Carbon::now()]
-        );
+
+        // Eliminar cualquier token anterior para este email
+        DB::table('password_resets')->where('email', $request->email)->delete();
+
+        // Insertar el nuevo token
+        DB::table('password_resets')->insert([
+            'email' => $request->email,
+            'token' => Hash::make($token), // Guardamos el token hasheado
+            'created_at' => Carbon::now(),
+        ]);
 
         // Enviar el correo con el enlace de recuperación
-        Mail::send('emails.reset-password', ['token' => $token], function ($message) use ($request) {
+        Mail::send('emails.reset-password', ['token' => $token, 'email' => $request->email], function ($message) use ($request) {
             $message->to($request->email);
             $message->subject('Recuperación de contraseña');
         });
 
         return back()->with('success', 'Se ha enviado un correo con el enlace de recuperación.');
     }
+
 }
