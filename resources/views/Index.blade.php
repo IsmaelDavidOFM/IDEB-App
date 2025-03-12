@@ -21,7 +21,7 @@
                             profesionales del sector industrial, con una enseñanza práctica y aplicable.
                             ¡Comienza a aprender con nosotros hoy mismo!
                         </p>
-                        <button type="button" class="btn btn-primary custom-btn">Unirse Ahora</button>
+                        <a href="{{ url('/login') }}" class="btn btn-primary custom-btn">Unete a nosotros</a>
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1Yigg--mrdeXZN8MOBqp8zeiUIVibMhJllCdaoPwSAoITJXxjiVu6rey8SMlrtEzfFNY&usqp=CAU"
