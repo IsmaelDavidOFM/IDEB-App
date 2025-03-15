@@ -44,9 +44,12 @@
     /* Para centrar las tarjetas en la pantalla */
     .row {
         display: flex;
-        justify-content: center; /* Centra las tarjetas en el eje horizontal */
-        align-items: center; /* Centra las tarjetas en el eje vertical */
-        flex-wrap: wrap; /* Permite que las tarjetas se ajusten a varias filas si es necesario */
+        justify-content: center;
+        /* Centra las tarjetas en el eje horizontal */
+        align-items: center;
+        /* Centra las tarjetas en el eje vertical */
+        flex-wrap: wrap;
+        /* Permite que las tarjetas se ajusten a varias filas si es necesario */
     }
 
     /* Mejora la responsividad */
@@ -55,40 +58,49 @@
     /* Para pantallas pequeñas, las tarjetas se apilan verticalmente */
     @media (max-width: 576px) {
         .cardOp {
-            width: 100%; /* Las tarjetas ocupan todo el ancho disponible en pantallas muy pequeñas */
+            width: 100%;
+            /* Las tarjetas ocupan todo el ancho disponible en pantallas muy pequeñas */
         }
     }
 </style>
 
 @section('content')
+
     <div class="container">
         <h2>Portal</h2>
-        <div class="row">
-            <!-- Tarjeta Material de Apoyo -->
-            <div class="col-md-4 col-sm-12">
-                <div class="cardOp">
-                    <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Material de apoyo">
-                    <a href="/biblioteca">Material de apoyo</a>
-                </div>
-            </div>
 
-            <!-- Tarjeta Grabaciones de Cursos -->
-            <div class="col-md-4 col-sm-12">
-                <div class="cardOp">
-                    <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Grabaciones de cursos">
-                    <a href="/cursos">Grabaciones de cursos</a>
+        @if ($status == 'completado')
+            <div class="row">
+                <!-- Tarjeta Material de Apoyo -->
+                <div class="col-md-4 col-sm-12">
+                    <div class="cardOp">
+                        <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Material de apoyo">
+                        <a href="/biblioteca">Material de apoyo</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Tarjeta Certificado -->
-            <div class="col-md-4 col-sm-12">
-                <div class="cardOp">
-                    <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Certificado">
-                    <a href="{{ route('certificado.mostrar') }}">Certificado</a>
+                <!-- Tarjeta Grabaciones de Cursos -->
+                <div class="col-md-4 col-sm-12">
+                    <div class="cardOp">
+                        <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Grabaciones de cursos">
+                        <a href="/cursos">Grabaciones de cursos</a>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Certificado -->
+                <div class="col-md-4 col-sm-12">
+                    <div class="cardOp">
+                        <img src="https://cdn-icons-png.flaticon.com/512/12048/12048902.png" alt="Certificado">
+                        <a href="{{ route('certificado.mostrar') }}">Certificado</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        @else
+            <p class="alert alert-warning">Aún no has completado el curso. Completa el curso para acceder a estos apartados.
+            </p>
+        @endif
     </div>
+
 @endsection
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>

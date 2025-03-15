@@ -17,7 +17,6 @@
         fill: #333;
     }
 </style>
-
 @section('content')
 <div class="container my-4">
     <div class="row">
@@ -67,33 +66,35 @@
                 </div>
                 <div class="card-body">
                     @php
-                        // Simulación de lecciones
-                        $lessons = (isset($curso->videos) && is_array($curso->videos) && count($curso->videos) > 0)
-                            ? $curso->videos
-                            : [
-                                (object)['titulo' => 'Lección 1: Introducción', 'url' => 'default.mp4'],
-                                (object)['titulo' => 'Lección 2: Conceptos Básicos', 'url' => 'default.mp4']
-                            ];
+                        // Verificar si existen grabaciones en la base de datos
+                        $videos = isset($curso->videos) && is_array($curso->videos) ? $curso->videos : null;
                     @endphp
-                    <div class="accordion" id="lessonsAccordion">
-                        @foreach ($lessons as $index => $lesson)
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading{{ $index }}">
-                                <button class="accordion-button {{ $index > 0 ? 'collapsed' : '' }}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $index }}" aria-expanded="{{ $index == 0 ? 'true' : 'false' }}" aria-controls="collapse{{ $index }}">
-                                    {{ $lesson->titulo }}
-                                </button>
-                            </h2>
-                            <div id="collapse{{ $index }}" class="accordion-collapse collapse {{ $index == 0 ? 'show' : '' }}" aria-labelledby="heading{{ $index }}" data-bs-parent="#lessonsAccordion">
-                                <div class="accordion-body">
-                                    <video class="lesson-video" controls width="100%" style="max-height: 300px;" data-lesson="{{ $index }}">
-                                        <source src="{{ asset('videos/' . $lesson->url) }}" type="video/mp4">
-                                        Tu navegador no soporta la reproducción de videos.
-                                    </video>
+
+                    @if ($videos && count($videos) > 0)
+                        <!-- Si hay grabaciones, mostrar el acordeón de lecciones -->
+                        <div class="accordion" id="lessonsAccordion">
+                            @foreach ($videos as $index => $video)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading{{ $index }}">
+                                        <button class="accordion-button {{ $index > 0 ? 'collapsed' : '' }}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $index }}" aria-expanded="{{ $index == 0 ? 'true' : 'false' }}" aria-controls="collapse{{ $index }}">
+                                            {{ $video->titulo ?? 'Lección sin título' }}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{ $index }}" class="accordion-collapse collapse {{ $index == 0 ? 'show' : '' }}" aria-labelledby="heading{{ $index }}" data-bs-parent="#lessonsAccordion">
+                                        <div class="accordion-body">
+                                            <video class="lesson-video" controls width="100%" style="max-height: 300px;" data-lesson="{{ $index }}">
+                                                <source src="{{ asset('videos/' . $video->url) }}" type="video/mp4">
+                                                Tu navegador no soporta la reproducción de videos.
+                                            </video>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
-                        @endforeach
-                    </div>
+                    @else
+                        <!-- Si no hay grabaciones, mostrar mensaje -->
+                        <p class="text-center text-danger">Grabaciones no encontradas.</p>
+                    @endif
                 </div>
             </div>
         </div> <!-- Fin columna derecha -->

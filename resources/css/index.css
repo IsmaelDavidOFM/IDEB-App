@@ -1,0 +1,60 @@
+.intro {
+    margin-bottom: 5rem;
+    margin-top: 5rem;
+}
+
+/* Ajuste para pantallas grandes */
+.courses,
+.employees {
+    min-height: 80vh;
+}
+
+/* Ajustes para mejorar responsividad */
+@media (max-width: 768px) {
+    .intro {
+        margin: 2rem 0;
+        text-align: center;
+    }
+
+    .intro img {
+        height: auto;
+        max-width: 80%;
+        margin: 0 auto;
+    }
+}
+
+/*--------------------------------------25/02/25---------------------------------------*/
+.courses-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px; /* Espacio entre tarjetas */
+}
+
+.card-course {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    margin-bottom: 40px; /* Espaciado extra en pantallas pequeñas */
+    margin-left:50px;
+}
+
+.card-course:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.2);
+}
+
+.middle-course {
+    transform: scale(1.1);
+}
+
+.custom-btn {
+    font-size: 1.2rem;
+    padding: 10px 30px;
+    margin-top: 30px;
+}
+
+@media (max-width: 992px) {
+    .middle-course {
+        transform: scale(1);
+    }
+}
+

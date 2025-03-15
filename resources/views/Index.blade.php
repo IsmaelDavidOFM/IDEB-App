@@ -3,8 +3,10 @@
 @section('title', 'Instituto I-DEB')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+
     <section>
+                <!-- Animacion / imagen de bienvenida -->
         <div class="intro d-flex align-items-center p-5 w-100" style="height: 50vh;">
             <img src="/image/Instituto_IDEB_Logotipo_0.png" alt="Instituto IDEB" class="img-fluid w-100 h-100" style="object-fit: cover;">
         </div>

@@ -181,6 +181,7 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Información de Cursos
                         </a>
+                        <!-- Globales -->
                         <ul class="dropdown-menu bg-dark border-0" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item text-light"
                                     href="{{ url('/informacion_cursos/flayAdds') }}">Flayers y anuncios</a></li>
@@ -191,7 +192,7 @@
                         </ul>
                     </li>
 
-                    <!-- Otras opciones del menú -->
+                    <!-- Otras opciones del menú / deteccion de pagina -->
                     <li class="nav-item">
                         @if (Request::is('/'))
                             <a class="nav-link" href="#courses">Cursos en Línea</a>
@@ -250,7 +251,7 @@
     <main>
         @yield('content')
     </main>
-
+ <!-- Pie de pagina  -->
     <footer class="footer bg-dark text-white py-4">
         <div class="container text-center text-md-start">
             <!-- Sección de Contacto -->

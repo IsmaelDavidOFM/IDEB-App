@@ -14,6 +14,8 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Student;
 
 //Ruta para index
 Route::get('/', [ShowCursosController::class, 'homeview']);
@@ -58,7 +60,8 @@ Route::middleware(['auth:students'])->group(function () {
 
     // Ruta para el certificado
     Route::get('/certificado', [CertificadoController::class, 'mostrarCertificado'])->name('certificado.mostrar');
-    Route::get('/certificado/descargar', [CertificadoController::class, 'descargarCertificado'])->name('certificado.descargar');
+    Route::get('/certificado/descargar/{orderId}', [CertificadoController::class, 'descargarCertificado'])->name('certificado.descargar');
+
 
     // Ruta para la vista del portal de participantes
     Route::get('/participantes', function () {
@@ -79,9 +82,10 @@ Route::middleware(['auth:students'])->group(function () {
     Route::post('/carrito/vaciar', [CartController::class, 'vaciar'])->name('carrito.vaciar');
     Route::post('/compra', [CartController::class, 'store'])->name('compra.store');
 
-    Route::get('/gracias', function () {
-        return view('gracias');
-    })->name('gracias');
+    Route::get('/participantes', function () {
+        $student = Student::where('id', Auth::id())->first();
+        return view('students.portal', ['status' => $student->status ?? 'No disponible']);
+    })->name('participantes.portal');
 });
 
 //Rutas para froumario de pago
