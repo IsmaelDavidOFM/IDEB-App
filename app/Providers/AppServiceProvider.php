@@ -4,7 +4,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Models\Cart;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
             }
 
             $view->with('cartCount', $cartCount); // Hacer disponible la variable en todas las vistas
+        });
+        View::composer('template.layout', function ($view) {
+            $contacto = DB::table('contacto')->first();
+            $view->with('contacto', $contacto);
         });
     }
 }

@@ -251,7 +251,7 @@
     <main>
         @yield('content')
     </main>
- <!-- Pie de pagina  -->
+    <!-- Pie de pagina  -->
     <footer class="footer bg-dark text-white py-4">
         <div class="container text-center text-md-start">
             <!-- Sección de Contacto -->
@@ -264,12 +264,18 @@
             <div class="row align-items-center d-flex justify-content-center">
                 <!-- Información de Contacto -->
                 <div class="col-md-4 text-md-start text-center mb-3">
-                    <p style="font-size: 1.2rem;"><strong>Dirección:</strong> Calle 123, Ciudad</p>
-                    <p style="font-size: 1.2rem;"><strong>Email:</strong> contacto@example.com</p>
-                    <p style="font-size: 1.2rem;"><strong>Teléfono:</strong> 232454356</p>
+                    <p style="font-size: 1.2rem;">
+                        <strong>Dirección:</strong> {{ $contacto->direccion ?? 'No disponible' }}
+                    </p>
+                    <p style="font-size: 1.2rem;">
+                        <strong>Email:</strong> {{ $contacto->email ?? 'No disponible' }}
+                    </p>
+                    <p style="font-size: 1.2rem;">
+                        <strong>Teléfono:</strong> {{ $contacto->telefono ?? 'No disponible' }}
+                    </p>
                 </div>
 
-                <!-- Botón Foro (si no estamos en /foro) -->
+                <!-- Botón Foro -->
                 <div class="col-md-4 text-center mb-3">
                     @if (!Request::is('foro'))
                         <a href="/foro" class="btn btn-primary"
@@ -294,9 +300,7 @@
         <!-- Sección Legal -->
         <div class="legal text-center mt-3 bg-secondary py-2">
             <small style="font-size: 1.2rem;">Todos los derechos reservados &copy;
-                <script>
-                    document.write(new Date().getFullYear());
-                </script>
+                <script>document.write(new Date().getFullYear());</script>
             </small>
         </div>
     </footer>
