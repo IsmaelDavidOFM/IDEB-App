@@ -41,7 +41,17 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'password'=>'hashed',
+            'password' => 'hashed',
         ];
+    }
+    // User.php
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+    // En el modelo User.php
+    public function getStudentIdAttribute()
+    {
+        return $this->student_id;  // Aquí obtienes el student_id directamente si está en la tabla `users`
     }
 }

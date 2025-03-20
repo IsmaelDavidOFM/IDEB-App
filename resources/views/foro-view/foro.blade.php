@@ -161,11 +161,20 @@
         <div id="comentarios" class="mt-4">
             @foreach ($comments as $comment)
                 <div class="comment-box p-3 mb-3 border rounded">
-                    <strong>{{ $comment->name }}</strong> - <small>{{ $comment->created_at->format('d/m/Y H:i') }}</small>
+                    <strong>
+                        @if($comment->student_id)
+                            {{ App\Models\Student::find($comment->student_id)->name }}
+                        @else
+                            Anónimo
+                        @endif
+                    </strong>
+                    - <small>{{ $comment->created_at->format('d/m/Y H:i') }}</small>
                     <p>{{ $comment->content }}</p>
                 </div>
             @endforeach
         </div>
+
+
     </div>
     <br><br><br><br><br>
 @endsection

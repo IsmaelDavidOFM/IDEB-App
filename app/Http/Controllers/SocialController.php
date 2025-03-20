@@ -61,8 +61,15 @@ class SocialController extends Controller
     }
     public function store(Request $request)
     {
+        if (Auth::guard('students')->check()) {  // Asegúrate de usar el guard que has configurado para 'student'
+            $student_id = Auth::guard('students')->id();  // Obtenemos el ID del estudiante autenticado
+        } else {
+            $student_id = null; // Si no está autenticado, asignamos null
+        }
+
+
         $comment = new Comment();
-        $comment->user_id = Auth::check() ? Auth::id() : 0; // Si el usuario no está autenticado, se asigna 0
+        $comment->student_id = $student_id;  // Si el usuario no está autenticado, se asigna 0
         $comment->curso_id = $request->curso_id;
         $comment->email = Auth::check() ? Auth::user()->email : 'Sin email';
         $comment->content = $request->comentario;
